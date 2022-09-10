@@ -19,7 +19,7 @@ public class UserMapper {
                 .region(resultSet.getString(Columns.REGION))
                 .institution(resultSet.getString(Columns.INSTITUTION))
                 .blocked(resultSet.getBoolean(Columns.BLOCKED))
-                .role(resultSet.getLong(Columns.ROLE_ID))
+                .role(RoleMapper.extractPosition(resultSet,Columns.ROLE_ID))
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package com.epam.selectioncommittee.model.builders;
 
+import com.epam.selectioncommittee.model.entity.Role;
 import com.epam.selectioncommittee.model.entity.User;
 
 public class UserBuilder {
@@ -21,7 +22,7 @@ public class UserBuilder {
 
     private String  institution;
 
-    private Long role;
+    private Role role;
 
     private Boolean blocked;
 
@@ -78,7 +79,7 @@ public class UserBuilder {
 
     }
 
-    public UserBuilder role(Long role) {
+    public UserBuilder role(Role role) {
         this.role = role;
         return this;
     }
