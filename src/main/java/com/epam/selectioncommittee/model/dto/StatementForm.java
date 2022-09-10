@@ -1,48 +1,45 @@
 package com.epam.selectioncommittee.model.dto;
 
-import com.epam.selectioncommittee.model.entity.Faculty;
-import com.epam.selectioncommittee.model.entity.User;
-
 import java.util.List;
 
 public class StatementForm {
 
-    User user;
+    String userId;
 
-    Faculty faculty;
+    String facultyId;
 
-    List<Long> grades;
+    List<String> grades;
 
     public StatementForm() {
     }
 
-    public StatementForm(User user, Faculty faculty, List<Long> grades) {
-        this.user = user;
-        this.faculty = faculty;
+    public StatementForm(String userId, String facultyId, List<String> grades) {
+        this.userId = userId;
+        this.facultyId = facultyId;
         this.grades = grades;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public Faculty getFaculty() {
-        return faculty;
+    public String getFacultyId() {
+        return facultyId;
     }
 
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
+    public void setFacultyId(String facultyId) {
+        this.facultyId = facultyId;
     }
 
-    public List<Long> getGrades() {
+    public List<String> getGrades() {
         return grades;
     }
 
-    public void setGrades(List<Long> grades) {
+    public void setGrades(List<String> grades) {
         this.grades = grades;
     }
 }

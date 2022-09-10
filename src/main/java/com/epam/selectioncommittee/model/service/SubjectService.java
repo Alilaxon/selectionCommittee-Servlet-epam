@@ -5,11 +5,14 @@ import com.epam.selectioncommittee.model.dao.SubjectRepository;
 import com.epam.selectioncommittee.model.dto.SubjectForm;
 import com.epam.selectioncommittee.model.entity.Subject;
 import com.epam.selectioncommittee.model.exception.SubjectIsReservedException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 public class SubjectService {
+
+    private static final Logger log = LogManager.getLogger(SubjectService.class);
     private  final SubjectRepository subjectRepository;
 
 
@@ -21,7 +24,7 @@ public class SubjectService {
 
         checkSubjectNameEN(subjectForm.getNameEN());
 
-     //   log.info("Subject '{}' was created", subjectForm.getNameEN());
+        log.info("Subject '{}' was created", subjectForm.getNameEN());
 
         return subjectRepository.save(SubjectBuilder.builder()
                 .nameEN(subjectForm.getNameEN())
@@ -39,14 +42,14 @@ public class SubjectService {
     private void checkSubjectNameEN(String nameEN) throws SubjectIsReservedException {
         if (subjectRepository.existsByNameEN(nameEN)) {
 
-        //    log.warn("Subject '{}' is reserved",nameEN);
+            log.warn("Subject '{}' is reserved",nameEN);
 
             throw new SubjectIsReservedException();
         }
     }
     public void deleteSubject(Long id) {
 
-      //  log.info("Subject '{}' is deleted",subjectRepository.findById(id).get().getNameEN());
+        log.info("Subject id = '{}' is deleted",id);
 
         subjectRepository.deleteById(id);
     }

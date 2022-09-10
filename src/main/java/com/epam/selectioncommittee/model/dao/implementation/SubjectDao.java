@@ -2,7 +2,9 @@ package com.epam.selectioncommittee.model.dao.implementation;
 
 import com.epam.selectioncommittee.model.dao.DBmanager.DBManager;
 import com.epam.selectioncommittee.model.dao.SubjectRepository;
+import com.epam.selectioncommittee.model.dao.mapper.Columns;
 import com.epam.selectioncommittee.model.dao.mapper.SubjectMapper;
+import com.epam.selectioncommittee.model.dao.mapper.UserMapper;
 import com.epam.selectioncommittee.model.entity.Subject;
 
 import java.sql.Connection;
@@ -68,6 +70,24 @@ public class SubjectDao implements SubjectRepository {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public Subject findById(Long id) {
+
+        try(Connection connection = DBManager.getInstance().getConnection()) {
+
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM subjects WHERE id =?");
+            statement.setLong(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            statement.close();
+
+            return SubjectMapper.extractSubject(resultSet);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override

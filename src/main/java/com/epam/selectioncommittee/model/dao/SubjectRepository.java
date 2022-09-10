@@ -8,9 +8,13 @@ public interface SubjectRepository {
 
 Subject save(Subject subject);
 
+
+
 List<Subject> findAll ();
 
 boolean existsByNameEN(String name);
+
+    Subject findById(Long id);
 
 void deleteById(Long id);
 }

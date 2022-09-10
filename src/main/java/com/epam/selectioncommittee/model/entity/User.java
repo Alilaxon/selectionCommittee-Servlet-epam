@@ -1,6 +1,8 @@
 package com.epam.selectioncommittee.model.entity;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private Long id;
 
@@ -20,7 +22,7 @@ public class User {
 
     private String  institution;
 
-    private Long role;
+    private Role role;
 
     private Boolean blocked;
 
@@ -29,7 +31,7 @@ public class User {
 
     public User(Long id, String username, String password, String email,
                 String firstname, String surname, String city, String region,
-                String institution, Long role, Boolean blocked) {
+                String institution, Role role, Boolean blocked) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -115,11 +117,11 @@ public class User {
         this.institution = institution;
     }
 
-    public Long getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(Long role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 

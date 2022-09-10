@@ -94,14 +94,16 @@ public class StatementDao implements StatementRepository {
         return statements;
     }
 
+
+
     @Override
-    public boolean existsByUserIdAndAndFacultyId(User user, Faculty faculty) {
+    public boolean existsByUserIdAndAndFacultyId(Long userId, Long facultyId) {
         try(Connection connection = DBManager.getInstance().getConnection()) {
 
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM statements " +
                     "WHERE user_id =? AND faculty_id=?");
-            statement.setLong(1,user.getId());
-            statement.setLong(1,faculty.getId());
+            statement.setLong(1,userId);
+            statement.setLong(1,facultyId);
             ResultSet resultSet = statement.executeQuery();
 
             return resultSet.next();
@@ -114,5 +116,21 @@ public class StatementDao implements StatementRepository {
     @Override
     public void deleteAll(List<Statement> statements) {
 
+        for (Statement statement: statements) {
+
+            deleteById(statement.getId());
+
+        }
+
+    }
+
+    @Override
+    public void saveAll(List<Statement> statements) {
+
+        for (Statement statement: statements) {
+
+            save(statement);
+
+        }
     }
 }

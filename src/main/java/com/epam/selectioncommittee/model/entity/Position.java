@@ -1,6 +1,8 @@
 package com.epam.selectioncommittee.model.entity;
 
-public class Position {
+import java.io.Serializable;
+
+public class Position implements Serializable {
 
     Long id;
 

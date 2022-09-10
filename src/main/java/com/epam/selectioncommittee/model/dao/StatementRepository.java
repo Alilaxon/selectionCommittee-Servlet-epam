@@ -16,8 +16,9 @@ public interface StatementRepository {
 
     List<Statement> findAllByFacultyId(Faculty faculty);
 
-    boolean existsByUserIdAndAndFacultyId(User user, Faculty faculty);
+    boolean existsByUserIdAndAndFacultyId(Long userId, Long facultyId);
 
    void deleteAll(List<Statement> statements);
 
+    void saveAll(List<Statement> statements);
 }

@@ -1,8 +1,9 @@
 package com.epam.selectioncommittee.model.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Faculty {
+public class Faculty implements Serializable {
     private Long id;
 
     private String facultyName;
