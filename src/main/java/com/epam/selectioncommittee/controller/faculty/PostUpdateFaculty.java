@@ -16,6 +16,10 @@ public class PostUpdateFaculty implements Command {
 
     FacultyService facultyService;
 
+    public PostUpdateFaculty(SubjectService subjectService, FacultyService facultyService) {
+        this.subjectService = subjectService;
+        this.facultyService = facultyService;
+    }
 
     @Override
     public String execute(HttpServletRequest request) {

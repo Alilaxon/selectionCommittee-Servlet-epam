@@ -6,7 +6,9 @@ import com.epam.selectioncommittee.model.dao.UserRepository;
 import com.epam.selectioncommittee.model.dto.UserForm;
 import com.epam.selectioncommittee.model.entity.Role;
 import com.epam.selectioncommittee.model.entity.User;
+import com.epam.selectioncommittee.model.exception.AuthenticationException;
 import com.epam.selectioncommittee.model.exception.EmailIsReservedException;
+import com.epam.selectioncommittee.model.exception.UserIsBlockedException;
 import com.epam.selectioncommittee.model.exception.UsernameIsReservedException;
 import com.epam.selectioncommittee.model.service.util.PasswordEncoder;
 import org.apache.logging.log4j.LogManager;
@@ -52,6 +54,25 @@ public class UserService {
                 .institution(userForm.getInstitution())
                 .blocked(false)
                 .build());
+    }
+
+    public User Authentication(String username, String password) throws UserIsBlockedException, AuthenticationException {
+
+        password = passwordEncoder.encode(password);
+
+        User user = userRepository.findByUsernameAndPassword(username,password);
+
+        if (user != null) {
+
+            if (!user.getBlocked()) {
+
+                return user;
+            } else {
+                throw new UserIsBlockedException();
+            }
+        } else {
+            throw new AuthenticationException();
+        }
     }
 
     private void checkUsername(String login) throws UsernameIsReservedException {

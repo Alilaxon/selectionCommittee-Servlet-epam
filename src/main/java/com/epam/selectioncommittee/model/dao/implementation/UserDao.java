@@ -49,6 +49,25 @@ public class UserDao implements UserRepository {
     }
 
     @Override
+    public User findByUsernameAndPassword(String username, String password) {
+
+        try(Connection connection = DBManager.getInstance().getConnection()) {
+
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE username =? AND password=?");
+            statement.setString(1, username);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+            statement.close();
+
+            return UserMapper.extractUser(resultSet,Columns.ID);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Override
     public User findByUsername(String username) {
 
         try(Connection connection = DBManager.getInstance().getConnection()) {

@@ -8,6 +8,7 @@ public class PostDeleteFaculty implements Command {
     FacultyService facultyService;
 
     public PostDeleteFaculty(FacultyService facultyService) {
+
         this.facultyService = facultyService;
     }
 

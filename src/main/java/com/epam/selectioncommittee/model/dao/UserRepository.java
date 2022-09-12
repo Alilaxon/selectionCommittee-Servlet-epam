@@ -12,6 +12,8 @@ public interface UserRepository {
 
     boolean existsByEmail (String email);
 
+    User findByUsernameAndPassword(String username , String password);
+
     User findByUsername(String username);
 
     User findById (Long id);

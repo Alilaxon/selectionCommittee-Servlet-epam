@@ -1,4 +1,4 @@
-package com.epam.selectioncommittee.controller.guest;
+package com.epam.selectioncommittee.controller.user;
 
 import com.epam.selectioncommittee.controller.Command;
 import com.epam.selectioncommittee.controller.mapper.UserFormMapper;
@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 public class PostCreateUser implements Command {
 
     UserService userService;
+
+    public PostCreateUser(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public String execute(HttpServletRequest request) {

@@ -1,15 +1,19 @@
-package com.epam.selectioncommittee.controller.statement;
+package com.epam.selectioncommittee.controller.admin;
 
 import com.epam.selectioncommittee.controller.Command;
+import com.epam.selectioncommittee.model.service.FacultyService;
 import com.epam.selectioncommittee.model.service.StatementService;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class GetStatements implements Command {
+public class PostCloseRecruitment implements Command {
+
+    FacultyService facultyService;
 
     StatementService statementService;
 
-    public GetStatements(StatementService statementService) {
+    public PostCloseRecruitment(FacultyService facultyService, StatementService statementService) {
+        this.facultyService = facultyService;
         this.statementService = statementService;
     }
 

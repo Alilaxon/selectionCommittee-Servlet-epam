@@ -1,15 +1,19 @@
-package com.epam.selectioncommittee.controller.admin;
+package com.epam.selectioncommittee.controller.statement;
 
 import com.epam.selectioncommittee.controller.Command;
+import com.epam.selectioncommittee.model.service.FacultyService;
 import com.epam.selectioncommittee.model.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class GetAdminPage implements Command {
+public class GetCreateStatement implements Command {
+
+    FacultyService facultyService;
 
     UserService userService;
 
-    public GetAdminPage(UserService userService) {
+    public GetCreateStatement(FacultyService facultyService, UserService userService) {
+        this.facultyService = facultyService;
         this.userService = userService;
     }
 

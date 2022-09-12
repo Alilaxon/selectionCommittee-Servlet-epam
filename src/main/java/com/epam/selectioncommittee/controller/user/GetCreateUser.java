@@ -1,4 +1,4 @@
-package com.epam.selectioncommittee.controller.guest;
+package com.epam.selectioncommittee.controller.user;
 
 import com.epam.selectioncommittee.controller.Command;
 import com.epam.selectioncommittee.model.dto.UserForm;
