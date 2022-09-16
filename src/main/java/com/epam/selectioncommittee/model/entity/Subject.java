@@ -28,6 +28,9 @@ public class Subject implements Serializable {
     }
 
     public String getNameEN() {
+
+        System.out.println("getNameEN");
+
         return nameEN;
     }
 
@@ -36,10 +39,19 @@ public class Subject implements Serializable {
     }
 
     public String getNameRU() {
+
         return nameRU;
     }
 
     public void setNameRU(String nameRU) {
         this.nameRU = nameRU;
+    }
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "nameEN='" + nameEN + '\'' +
+                ", nameRU='" + nameRU + '\'' +
+                '}';
     }
 }

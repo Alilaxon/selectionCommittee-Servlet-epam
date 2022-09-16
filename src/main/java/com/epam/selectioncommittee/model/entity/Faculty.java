@@ -88,4 +88,17 @@ public class Faculty implements Serializable {
     public void setRequiredSubjects(List<Subject> requiredSubjects) {
         this.requiredSubjects = requiredSubjects;
     }
+
+    @Override
+    public String toString() {
+        return "Faculty{" +
+                "id=" + id +
+                ", facultyName='" + facultyName + '\'' +
+                ", facultyNameRU='" + facultyNameRU + '\'' +
+                ", budgetPlaces=" + budgetPlaces +
+                ", generalPlaces=" + generalPlaces +
+                ", recruitment=" + recruitment +
+                ", requiredSubjects=" + requiredSubjects +
+                '}';
+    }
 }

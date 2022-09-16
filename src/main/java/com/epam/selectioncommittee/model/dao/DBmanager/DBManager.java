@@ -1,31 +1,48 @@
 package com.epam.selectioncommittee.model.dao.DBmanager;
 
-import javax.sql.DataSource;
-import java.io.FileReader;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
 public class DBManager {
     private static DBManager instance;
+    private final HikariDataSource dataSource;
 
-
-    private static Connection connection;
-
-
-    private static final String DATABASE_URL;
-    private static final Properties properties = new Properties();
+    static Properties properties = new Properties();
 
     static {
+
         try {
-            properties.load(new FileReader("app.properties"));
+            properties.load(DBManager.class.getResourceAsStream("/app.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        DATABASE_URL = (String) properties.get("connection.url");
+
     }
+
+    private DBManager() {
+        HikariConfig config = new HikariConfig();
+
+        config.setDriverClassName(properties.getProperty("driver"));
+
+        config.setJdbcUrl(properties.getProperty("url"));
+        config.setUsername(properties.getProperty("user"));
+        config.setPassword(properties.getProperty("password"));
+
+        // config.setMaximumPoolSize(10);
+
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+
+        dataSource = new HikariDataSource(config);
+
+    }
+
 
     public static synchronized DBManager getInstance() {
         if (instance == null) {
@@ -38,21 +55,11 @@ public class DBManager {
         return instance;
     }
 
-    private DBManager() throws SQLException {
-
-        Properties properties = new Properties();
 
 
+    public  Connection getConnection() throws SQLException {
 
-        connection = DriverManager.getConnection(DATABASE_URL);
-
+        return dataSource.getConnection();
     }
 
-    public  Connection getConnection() {
-        return connection;
-    }
-
-    public static void setConnection(Connection connection) {
-        DBManager.connection = connection;
-    }
 }

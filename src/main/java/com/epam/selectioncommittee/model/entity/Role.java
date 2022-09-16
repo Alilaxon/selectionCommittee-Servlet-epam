@@ -33,6 +33,6 @@ public class Role implements Serializable {
     }
 
     public enum RoleName{
-        USER,ADMIN
+        USER,ADMIN,GUEST
     }
 }

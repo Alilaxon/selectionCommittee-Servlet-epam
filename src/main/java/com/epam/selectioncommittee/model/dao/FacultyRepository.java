@@ -16,6 +16,7 @@ public interface FacultyRepository {
 
     List<Faculty > findAll();
 
+
     void deleteById(Long id);
 
 

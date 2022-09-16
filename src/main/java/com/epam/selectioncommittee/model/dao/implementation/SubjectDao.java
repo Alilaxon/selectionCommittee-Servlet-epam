@@ -2,9 +2,7 @@ package com.epam.selectioncommittee.model.dao.implementation;
 
 import com.epam.selectioncommittee.model.dao.DBmanager.DBManager;
 import com.epam.selectioncommittee.model.dao.SubjectRepository;
-import com.epam.selectioncommittee.model.dao.mapper.Columns;
 import com.epam.selectioncommittee.model.dao.mapper.SubjectMapper;
-import com.epam.selectioncommittee.model.dao.mapper.UserMapper;
 import com.epam.selectioncommittee.model.entity.Subject;
 
 import java.sql.Connection;
@@ -55,6 +53,8 @@ public class SubjectDao implements SubjectRepository {
 
         return subjects;
     }
+
+
 
     @Override
     public boolean existsByNameEN(String name) {

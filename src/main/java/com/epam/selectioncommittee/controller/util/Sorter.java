@@ -12,6 +12,12 @@ public class Sorter {
     }
 
     public static List<Faculty> facultySorting(List<Faculty> input, String sort, String order) {
+
+        for (Faculty faculty:
+             input) {
+            System.out.println(faculty.getFacultyName());
+
+        }
         List<Faculty> facultyList;
         if (sort.equals("generalPlaces")) {
             if (order.equals("desc")) {

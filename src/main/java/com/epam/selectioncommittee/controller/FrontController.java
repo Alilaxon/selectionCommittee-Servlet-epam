@@ -1,21 +1,23 @@
 package com.epam.selectioncommittee.controller;
 
-import com.epam.selectioncommittee.controller.admin.GetAdminPage;
-import com.epam.selectioncommittee.controller.admin.GetAllUsers;
-import com.epam.selectioncommittee.controller.admin.PostBlockUsers;
-import com.epam.selectioncommittee.controller.admin.PostCloseRecruitment;
-import com.epam.selectioncommittee.controller.faculty.*;
-import com.epam.selectioncommittee.controller.statement.GetCreateStatement;
-import com.epam.selectioncommittee.controller.statement.GetStatements;
-import com.epam.selectioncommittee.controller.statement.PostCreateStatement;
-import com.epam.selectioncommittee.controller.statement.PostDeleteStatement;
-import com.epam.selectioncommittee.controller.subject.GetAllSubjects;
-import com.epam.selectioncommittee.controller.subject.GetCreateSubject;
-import com.epam.selectioncommittee.controller.subject.PostCreateSubject;
-import com.epam.selectioncommittee.controller.subject.PostDeleteSubject;
-import com.epam.selectioncommittee.controller.user.GetCreateUser;
-import com.epam.selectioncommittee.controller.user.GetUserPage;
-import com.epam.selectioncommittee.controller.user.PostCreateUser;
+import com.epam.selectioncommittee.controller.command.Command;
+import com.epam.selectioncommittee.controller.command.admin.GetAdminPage;
+import com.epam.selectioncommittee.controller.command.admin.GetAllUsers;
+import com.epam.selectioncommittee.controller.command.admin.PostBlockUsers;
+import com.epam.selectioncommittee.controller.command.admin.PostCloseRecruitment;
+import com.epam.selectioncommittee.controller.command.faculty.*;
+import com.epam.selectioncommittee.controller.command.statement.GetCreateStatement;
+import com.epam.selectioncommittee.controller.command.statement.GetStatements;
+import com.epam.selectioncommittee.controller.command.statement.PostCreateStatement;
+import com.epam.selectioncommittee.controller.command.statement.PostDeleteStatement;
+import com.epam.selectioncommittee.controller.command.subject.GetAllSubjects;
+import com.epam.selectioncommittee.controller.command.subject.GetCreateSubject;
+import com.epam.selectioncommittee.controller.command.subject.PostCreateSubject;
+import com.epam.selectioncommittee.controller.command.subject.PostDeleteSubject;
+import com.epam.selectioncommittee.controller.command.user.GetCreateUser;
+import com.epam.selectioncommittee.controller.command.user.GetLogin;
+import com.epam.selectioncommittee.controller.command.user.GetUserPage;
+import com.epam.selectioncommittee.controller.command.user.PostCreateUser;
 import com.epam.selectioncommittee.controller.util.url.*;
 import com.epam.selectioncommittee.model.service.ServiceFactory;
 
@@ -29,9 +31,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FrontController extends HttpServlet {
-
     private Map<String, Command> getCommands = new HashMap<>();
     private Map<String, Command> postCommands = new HashMap<>();
+
+    private static final String COMMAND_NOT_FOUND = "Command not found";
+
+    private static final String REDIRECT = "redirect:";
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -40,25 +45,60 @@ public class FrontController extends HttpServlet {
         ServiceFactory factory = ServiceFactory.getInstance();
 
         setGetCommands(factory);
-        setGetCommands(factory);
+        setPostCommands(factory);
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+     //   super.doGet(req, resp);
+        System.out.println("goGet");
+        process(req,resp,getCommands);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+     //   super.doPost(req, resp);
+        System.out.println("goPost");
+        process(req,resp,postCommands);
     }
 
-    @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
+
+
+
+    private void process(HttpServletRequest request, HttpServletResponse response, Map<String, Command> commandMap) throws ServletException, IOException {
+
+        final String URI = request.getRequestURI();
+
+        String commandKey = commandMap.keySet().stream()
+                .filter(key -> key.equals(URI))
+                .findFirst()
+                .orElse(COMMAND_NOT_FOUND);
+
+        if (commandKey.equals(COMMAND_NOT_FOUND)) {
+//            logger.warn("page: {} not found", URI);
+//            response.sendError(404);
+            return;
+        }
+
+        Command command = commandMap.get(commandKey);
+        String result = command.execute(request);
+
+        renderPage(request, response, result);
+
     }
 
-    private void process(HttpServletRequest request, HttpServletResponse response, Map<String, Command> commandMap) {
-
+    private void renderPage(HttpServletRequest req, HttpServletResponse resp, String pagePath) throws ServletException, IOException {
+        if (pagePath.startsWith(REDIRECT)) {
+            resp.sendRedirect(pagePath.replace(REDIRECT, ""));
+        } else {
+            req.getRequestDispatcher(pagePath).forward(req, resp);
+        }
     }
 
     private void setGetCommands(ServiceFactory serviceFactory) {
         // User GET commands
+
+        getCommands.put(UserUrl.LOGIN,new GetLogin());
 
         getCommands.put(UserUrl.USER,
                 new GetUserPage(serviceFactory.createUserService(),
@@ -102,6 +142,7 @@ public class FrontController extends HttpServlet {
 
         // User POST commands
         postCommands.put(UserUrl.REGISTRATION,new PostCreateUser(serviceFactory.createUserService()));
+
         // Admin POST commands
         postCommands.put(AdminUrl.BLOCK_USER,
                 new PostBlockUsers(serviceFactory.createUserService()));
@@ -131,5 +172,3 @@ public class FrontController extends HttpServlet {
                 new PostDeleteStatement(serviceFactory.createStatementService()));
     }
 }
-
-

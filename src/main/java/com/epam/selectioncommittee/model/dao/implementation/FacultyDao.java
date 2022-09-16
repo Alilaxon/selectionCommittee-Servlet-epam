@@ -4,12 +4,15 @@ import com.epam.selectioncommittee.model.dao.DBmanager.DBManager;
 import com.epam.selectioncommittee.model.dao.FacultyRepository;
 import com.epam.selectioncommittee.model.dao.mapper.Columns;
 import com.epam.selectioncommittee.model.dao.mapper.FacultyMapper;
+import com.epam.selectioncommittee.model.dao.mapper.SubjectMapper;
 import com.epam.selectioncommittee.model.entity.Faculty;
+import com.epam.selectioncommittee.model.entity.Subject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FacultyDao implements FacultyRepository {
@@ -86,7 +89,25 @@ public class FacultyDao implements FacultyRepository {
 
     @Override
     public List<Faculty> findAll() {
-        return null;
+
+        List<Faculty> facultyList = new ArrayList<>();
+
+        try(Connection connection = DBManager.getInstance().getConnection()) {
+
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM faculties");
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()){
+
+                facultyList.add(FacultyMapper.extractFaculty(resultSet,
+                        Columns.ID,findAllSubjectsByFaculty(resultSet.getLong(Columns.ID))));
+            }
+            statement.close();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return facultyList;
     }
 
     @Override
@@ -104,5 +125,30 @@ public class FacultyDao implements FacultyRepository {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private List<Subject> findAllSubjectsByFaculty(Long id){
+        List<Subject> subjects = new ArrayList<>();
+
+        try(Connection connection = DBManager.getInstance().getConnection()) {
+
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM subjects " +
+                    "INNER JOIN faculties_subjects fs on subjects.id = fs.subject_id " +
+                    "WHERE  faculty_id =?");
+            statement.setLong(1,id);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()){
+
+                subjects.add(SubjectMapper.extractSubject(resultSet));
+            }
+            statement.close();
+
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return subjects;
     }
 }
