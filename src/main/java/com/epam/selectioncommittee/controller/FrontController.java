@@ -20,6 +20,8 @@ import com.epam.selectioncommittee.controller.command.user.GetUserPage;
 import com.epam.selectioncommittee.controller.command.user.PostCreateUser;
 import com.epam.selectioncommittee.controller.util.url.*;
 import com.epam.selectioncommittee.model.service.ServiceFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -31,6 +33,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FrontController extends HttpServlet {
+
+    private static final Logger log = LogManager.getLogger(FrontController.class);
     private Map<String, Command> getCommands = new HashMap<>();
     private Map<String, Command> postCommands = new HashMap<>();
 
@@ -50,15 +54,19 @@ public class FrontController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-     //   super.doGet(req, resp);
-        System.out.println("goGet");
+
+        log.info("Do GET Request ");
+
         process(req,resp,getCommands);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-     //   super.doPost(req, resp);
-        System.out.println("goPost");
+
+
+        log.info("Do POST Request ");
+
+
         process(req,resp,postCommands);
     }
 

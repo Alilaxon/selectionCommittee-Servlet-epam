@@ -30,13 +30,6 @@ public class FacultyService {
 
         checkFacultyName(facultyForm.getFacultyName());
 
-        for (String s:
-             facultyForm.getRequiredSubjects()) {
-
-            System.out.println(s);
-
-        }
-
         log.info("Faculty '{}' was created", facultyForm.getFacultyName());
 
         return facultyRepository.save(FacultyBuilder.builder()
@@ -61,6 +54,8 @@ public class FacultyService {
     }
 
     public List<Faculty> getAllFaculties() {
+
+        log.info("get all faculties");
 
         return facultyRepository.findAll();
     }
@@ -105,7 +100,7 @@ public class FacultyService {
 
         log.info("Faculty '{}'  closed recruitment", faculty.getFacultyName());
 
-        return facultyRepository.save(faculty);
+        return facultyRepository.update(faculty);
     }
 
     public Faculty openFacultyById(Long id) {
@@ -115,7 +110,7 @@ public class FacultyService {
 
         log.info("Faculty '{}'  opened recruitment", faculty.getFacultyName());
 
-        return facultyRepository.save(faculty);
+        return facultyRepository.update(faculty);
     }
 
     private boolean checkFacultyRename(FacultyForm facultyForm) {

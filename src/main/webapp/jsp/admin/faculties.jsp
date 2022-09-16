@@ -19,55 +19,77 @@
 </head>
 <body>
 <div class="container">
-    <%--    <div >--%>
-    <%--        --%>
-    <%--        </div>--%>
-    <%--        <h5>--%>
-    <%--             <fmt:message key="faculties.sort"/>--%>
-    <%--        </h5>--%>
-    <%--        <ul >--%>
-    <%--            <li >--%>
-    <%--                <a class="btn btn-secondary"--%>
-    <%--                   th:if="${order.equals('asc')}"--%>
-    <%--                   th:href="@{'/faculties?sort=name&order=desc'}"--%>
-    <%--                   th:text ="#{faculties.sortByName}">--%>
-    <%--                    <fmt:message key="faculties.sortByName"/>--%>
-    <%--                </a>--%>
-    <%--                <a class="btn btn-secondary"--%>
-    <%--                   th:if="${order.equals('desc')}"--%>
-    <%--                   th:href="@{'/faculties?sort=name&order=asc'}"--%>
-    <%--                   th:text="#{faculties.sortByName}">--%>
 
-    <%--                </a>--%>
-    <%--            </li>--%>
-    <%--            <li>--%>
-    <%--                <a class="btn btn-secondary"--%>
-    <%--                   th:if="${order.equals('asc')}"--%>
-    <%--                   th:href="@{'/faculties?sort=generalPlaces&order=desc'}"--%>
-    <%--                   th:text="#{faculties.sortByGeneralPlaces}">--%>
-    <%--                </a>--%>
-    <%--                <a class="btn btn-secondary"--%>
-    <%--                   th:if="${order.equals('desc')}"--%>
-    <%--                   th:href="@{'/faculties?sort=generalPlaces&order=asc'}"--%>
-    <%--                   th:text="#{faculties.sortByGeneralPlaces}">--%>
-    <%--                </a>--%>
-    <%--            </li>--%>
-    <%--            <li>--%>
-    <%--                <a class="btn btn-secondary"--%>
-    <%--                   th:if="${order.equals('asc')}"--%>
-    <%--                   th:href="@{'/faculties?sort=budgetPlaces&order=desc'}"--%>
-    <%--                   th:text="#{faculties.sortByBudgetPlaces}">--%>
-    <%--                </a>--%>
 
-    <%--                <a class="btn btn-secondary"--%>
-    <%--                   th:if="${order.equals('desc')}"--%>
-    <%--                   th:href="@{'/faculties?sort=budgetPlaces&order=asc'}"--%>
-    <%--                   th:text="#{faculties.sortByBudgetPlaces}">--%>
-    <%--                </a>--%>
-    <%--            </li>--%>
-    <%--        </ul>--%>
-    <%--        <hr>--%>
-    <%--    </div>--%>
+
+            <h5>
+                 <fmt:message key="faculties.sort"/>
+            </h5>
+            <ul>
+                <li>
+                    <form method="get" action="/faculties">
+                   <c:if test="${order == 'asc'}">
+                    <button class="btn btn-secondary" type="submit" >
+                        <fmt:message key="faculties.sortByName"/>
+                        <input type="hidden" name="sort" value="name">
+                        <input type="hidden" name="order" value="desc">
+
+                    </button>
+                   </c:if>
+
+                    <c:if test="${order == 'desc'}">
+                    <button class="btn btn-secondary" type="submit" >
+                        <fmt:message key="faculties.sortByName"/>
+                        <input type="hidden" name="sort" value="name">
+                        <input type="hidden" name="order" value="asc">
+                    </button>
+                    </c:if>
+                    </form>
+                </li>
+
+                <li>
+                    <form method="get" action="/faculties">
+                     <c:if test="${order == 'asc'}">
+                    <button class="btn btn-secondary" type="submit">
+                        <fmt:message key="faculties.sortByGeneralPlaces"/>
+                        <input type="hidden" name="sort" value="generalPlaces">
+                        <input type="hidden" name="order" value="desc">
+                    </button>
+                     </c:if>
+
+                         <c:if test="${order == 'desc'}">
+                    <button class="btn btn-secondary" type="submit">
+                        <fmt:message key="faculties.sortByGeneralPlaces"/>
+                        <input type="hidden" name="sort" value="generalPlaces">
+                        <input type="hidden" name="order" value="asc">
+                    </button>
+                         </c:if>
+                    </form>
+                </li>
+
+                <li>
+                    <form method="get" action="/faculties">
+                    <c:if test="${order == 'asc'}">
+                    <button class="btn btn-secondary" type="submit">
+                        <fmt:message key="faculties.sortByBudgetPlaces"/>
+                        <input type="hidden" name="sort" value="budgetPlaces">
+                        <input type="hidden" name="order" value="desc">
+                    </button>
+                    </c:if>
+                        <c:if test="${order == 'desc'}">
+                    <button class="btn btn-secondary" type="submit">
+                        <fmt:message key="faculties.sortByBudgetPlaces"/>
+                        <input type="hidden" name="sort" value="budgetPlaces">
+                        <input type="hidden" name="order" value="asc">
+                    </button>
+                        </c:if>
+                    </form>
+                </li>
+
+            </ul>
+            <hr>
+
+        </div>
     <div class="row row-cols-4 row-cols-md-4 g-4">
         <c:forEach var="faculty" items="${faculties}">
 
@@ -139,13 +161,13 @@
                             </a>
                         </form>
                         <form>
-                            <a class="btn btn-secondary"
-                               href="/admin/statements?facultyId=${faculty.getId()}"><fmt:message key="faculties.statements"/></a>
+                            <a class="btn btn-secondary" href="/admin/statements?facultyId=${faculty.getId()}">
+                                <fmt:message key="faculties.statements"/></a>
                             <br/>
                         </form>
 
-                        <form method="PATCH"
-                              action="${pageContext.request.contextPath}/admin/recruitment">
+                        <form method="POST"
+                              action="${pageContext.request.contextPath}/recruitment">
                             <input type="hidden"
                                    name="facultyId"
                                    value="${faculty.getId()}">
@@ -153,18 +175,18 @@
                                    name="facultyOpen"
                                    value="${faculty.getRecruitment()}">
 
-
-                            <button class="btn btn-success"
-                                    type="submit"
-                                    if="${faculty.getRecruitment()} "><fmt:message key="faculties.open"/>
-
+                            <c:if test="${faculty.getRecruitment() == false}">
+                            <button class="btn btn-success" type="submit">
+                                <fmt:message key="faculties.open"/>
                             </button>
+                            </c:if>
 
-                            <button class="btn btn-danger"
-                                    type="submit"
-                                    if="${!faculty.getRecruitment()}"><fmt:message key="faculties.close"/>
-
+                            <c:if test="${faculty.getRecruitment() == true}">
+                            <button class="btn btn-danger" type="submit">
+                                <fmt:message key="faculties.close"/>
                             </button>
+                            </c:if>
+
                         </form>
                     </div>
                 </div>

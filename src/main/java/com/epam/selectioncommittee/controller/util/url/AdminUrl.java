@@ -5,7 +5,7 @@ public class AdminUrl {
 
     public static final String USERS = "/users";
 
-    public static final String BLOCK_USER = "/admin/user";
+    public static final String BLOCK_USER = "/user";
 
-    public static final String CLOSE_RECRUITMENT = "/admin/recruitment";
+    public static final String CLOSE_RECRUITMENT = "/recruitment";
 }

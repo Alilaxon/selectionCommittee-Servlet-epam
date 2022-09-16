@@ -8,6 +8,8 @@ public interface FacultyRepository {
 
     Faculty save(Faculty faculty);
 
+    Faculty update(Faculty faculty);
+
     boolean existsByName(String name);
 
     Faculty findByName(String name);

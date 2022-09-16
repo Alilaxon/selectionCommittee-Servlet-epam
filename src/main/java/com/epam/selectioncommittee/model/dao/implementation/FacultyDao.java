@@ -34,7 +34,7 @@ public class FacultyDao implements FacultyRepository {
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     faculty.setId(generatedKeys.getLong(1));
-                    System.out.println(faculty.getId());
+
                 }
                 else {
                     throw new SQLException("Creating user failed, no ID obtained.");
@@ -60,6 +60,28 @@ public class FacultyDao implements FacultyRepository {
     }
 
     @Override
+    public Faculty update(Faculty faculty) {
+
+        try (Connection connection = DBManager.getInstance().getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE faculties SET name = ? , name_ru = ?,budget_places =?,general_places =?,recruitment =?  WHERE id = ?");
+
+            statement.setString(1, faculty.getFacultyName());
+            statement.setString(2, faculty.getFacultyNameRU());
+            statement.setInt(3, faculty.getBudgetPlaces());
+            statement.setInt(4, faculty.getGeneralPlaces());
+            statement.setBoolean(5, faculty.getRecruitment());
+            statement.setLong(6,faculty.getId());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return faculty;
+    }
+
+        @Override
     public boolean existsByName(String name) {
 
         try(Connection connection = DBManager.getInstance().getConnection()) {
@@ -112,6 +134,7 @@ public class FacultyDao implements FacultyRepository {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
     }
 
     @Override
