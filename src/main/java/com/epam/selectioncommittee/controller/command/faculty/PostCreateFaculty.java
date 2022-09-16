@@ -7,9 +7,14 @@ import com.epam.selectioncommittee.model.dto.FacultyForm;
 import com.epam.selectioncommittee.model.exception.FacultyIsReservedException;
 import com.epam.selectioncommittee.model.service.FacultyService;
 import com.epam.selectioncommittee.model.service.SubjectService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 
 public class PostCreateFaculty implements Command {
+
+    private static final Logger log = LogManager.getLogger(PostCreateFaculty.class);
 
     FacultyService facultyService;
 
@@ -25,28 +30,28 @@ public class PostCreateFaculty implements Command {
     public String execute(HttpServletRequest request) {
         FacultyForm facultyForm = FacultyFormMapper.mapper(request);
 
+        log.info("new faculty {}",facultyForm.getFacultyName());
+
         if (Validator.facultyValid(facultyForm)) {
 
             request.setAttribute("hasErrors", true);
             request.setAttribute("facultyForm", facultyForm);
             request.setAttribute("subjects", subjectService.getAllSubjects());
 
-            return "jsp/admin/updateFaculty";
+            return "jsp/admin/createFaculty.jsp";
         }
 
         try {
-            facultyService.updateFaculty(facultyForm);
+            facultyService.addFaculty(facultyForm);
 
             return "redirect:/faculties";
 
         } catch (FacultyIsReservedException exception) {
-            request.setAttribute("FacultyIsReserved", true);
-            request.setAttribute("facultyForm", facultyForm);
+
             request.setAttribute("subjects", subjectService.getAllSubjects());
 
 
-
-            return "jsp/admin/updateFaculty.jsp";
+            return "jsp/admin/createFaculty.jsp";
         }
 
 

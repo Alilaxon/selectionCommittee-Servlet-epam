@@ -8,10 +8,7 @@ import com.epam.selectioncommittee.model.dao.mapper.SubjectMapper;
 import com.epam.selectioncommittee.model.entity.Faculty;
 import com.epam.selectioncommittee.model.entity.Subject;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +18,40 @@ public class FacultyDao implements FacultyRepository {
         try (Connection connection = DBManager.getInstance().getConnection()){
             PreparedStatement statement = connection.prepareStatement(
                     "INSERT INTO faculties (name, name_ru, budget_places, general_places,recruitment)" +
-                            " VALUES (?,?,?,?,?)");
+                            " VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            connection.setAutoCommit(false);
             statement.setString(1, faculty.getFacultyName());
             statement.setString(2, faculty.getFacultyNameRU());
             statement.setInt(3,faculty.getBudgetPlaces());
             statement.setInt(4,faculty.getGeneralPlaces());
             statement.setBoolean(5,faculty.getRecruitment());
-            statement.executeQuery();
+
+            int affectedRows = statement.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Creating faculty failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    faculty.setId(generatedKeys.getLong(1));
+                    System.out.println(faculty.getId());
+                }
+                else {
+                    throw new SQLException("Creating user failed, no ID obtained.");
+                }
+            }
+            PreparedStatement manyToMany = connection.prepareStatement
+                    ("INSERT INTO faculties_subjects(faculty_id, subject_id) VALUES(?,?) ");
+
+            for (Subject subject: faculty.getRequiredSubjects()) {
+                manyToMany.setLong(1,faculty.getId());
+                manyToMany.setLong(2,subject.getId());
+                manyToMany.execute();
+            }
+            connection.commit();
+            connection.setAutoCommit(true);
             statement.close();
+            manyToMany.close();
             return faculty;
 
         } catch (SQLException e) {
@@ -44,13 +67,15 @@ public class FacultyDao implements FacultyRepository {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM faculties WHERE name =?");
             statement.setString(1,name);
             ResultSet resultSet = statement.executeQuery();
-            statement.close();
+
 
             return resultSet.next();
 
         } catch (Exception e) {
+
             throw new RuntimeException(e);
         }
+
 
     }
 
@@ -73,14 +98,16 @@ public class FacultyDao implements FacultyRepository {
 
     @Override
     public Faculty findById(Long id) {
+        Faculty faculty = null;
         try(Connection connection = DBManager.getInstance().getConnection()) {
 
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM faculties WHERE id =?");
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) faculty = FacultyMapper.extractFaculty(resultSet, Columns.ID);
             statement.close();
 
-            return FacultyMapper.extractFaculty(resultSet, Columns.ID);
+            return faculty;
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -117,7 +144,7 @@ public class FacultyDao implements FacultyRepository {
 
             PreparedStatement statement = connection.prepareStatement("DELETE FROM faculties WHERE id =?");
             statement.setLong(1,id);
-            statement.executeQuery();
+            statement.execute();
             statement.close();
 
 

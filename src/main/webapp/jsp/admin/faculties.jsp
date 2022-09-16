@@ -123,9 +123,11 @@
                         </c:if>
                     </div>
 
+
+
                     <div>
-                        <form method="DELETE"
-                             action="/admin/faculty/{id}(id=${faculty.getId()})}">
+                        <form method="POST" action="/deleteFaculty">
+                            <input type="hidden" name="id" value="${faculty.getId()}">
                             <button class="btn btn-secondary"
                                     type="submit" ><fmt:message key="common.delete"/>
                             </button>
@@ -172,7 +174,7 @@
     </div>
     <h2>
 
-        <a class="btn btn-primary" href="/admin/addFaculty"><fmt:message key="faculties.addFaculty"/></a>
+        <a class="btn btn-primary" href="/addFaculty"><fmt:message key="faculties.addFaculty"/></a>
         <br/>
         <a class="btn btn-primary" href="/"><fmt:message key="common.back"/></a>
     </h2>

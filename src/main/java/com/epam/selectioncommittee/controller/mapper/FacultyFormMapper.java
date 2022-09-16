@@ -10,7 +10,6 @@ public class FacultyFormMapper {
     public static FacultyForm mapper(HttpServletRequest request){
 
         return FacultyFormBuilder.builder()
-                .id(Long.valueOf(request.getParameter("facultyId")))
                 .facultyName(request.getParameter("facultyName"))
                 .facultyNameRU(request.getParameter("facultyName"))
                 .budgetPlaces(Integer.valueOf(request.getParameter("budgetPlaces")))

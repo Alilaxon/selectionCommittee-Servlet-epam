@@ -162,8 +162,8 @@ public class FrontController extends HttpServlet {
         postCommands.put(FacultyUrl.UPDATE_FACULTY,
                 new PostUpdateFaculty(serviceFactory.createSubjectService(),
                         serviceFactory.createFacultyService()));
-        postCommands.put(SubjectUrl.DELETE_SUBJECT,
-                new PostDeleteSubject(serviceFactory.createSubjectService()));
+        postCommands.put(FacultyUrl.DELETE_FACULTY,
+                new PostDeleteFaculty(serviceFactory.createFacultyService()));
 
         // Statement POST commands
         postCommands.put(StatementUrl.CREATE_STATEMENT,

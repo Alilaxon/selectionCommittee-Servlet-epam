@@ -27,11 +27,12 @@ public class StatementDao implements StatementRepository {
             preparedStatement.setLong(4,1);
             preparedStatement.executeQuery();
             preparedStatement.close();
-            return statement;
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return statement;
     }
 
     @Override

@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class SubjectFormMapper {
 
-    public SubjectForm mapper (HttpServletRequest request){
+    public static SubjectForm mapper (HttpServletRequest request){
         return SubjectFormBuilder.builder()
                 .nameEN(request.getParameter("nameEN"))
                 .nameRU(request.getParameter("nameRU"))

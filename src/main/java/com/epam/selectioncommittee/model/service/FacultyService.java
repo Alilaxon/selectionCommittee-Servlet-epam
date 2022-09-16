@@ -30,6 +30,13 @@ public class FacultyService {
 
         checkFacultyName(facultyForm.getFacultyName());
 
+        for (String s:
+             facultyForm.getRequiredSubjects()) {
+
+            System.out.println(s);
+
+        }
+
         log.info("Faculty '{}' was created", facultyForm.getFacultyName());
 
         return facultyRepository.save(FacultyBuilder.builder()
@@ -37,7 +44,7 @@ public class FacultyService {
                 .facultyNameRU(facultyForm.getFacultyNameRU())
                 .budgetPlaces(facultyForm.getGeneralPlaces())
                 .generalPlaces(facultyForm.getGeneralPlaces())
-                .requiredSubjects(findSubjectsByNames(facultyForm.getRequiredSubjects()))
+                .requiredSubjects(findSubjectsById(facultyForm.getRequiredSubjects()))
                 .recruitment(false)
                 .build());
     }
@@ -86,7 +93,7 @@ public class FacultyService {
                 .facultyNameRU(facultyForm.getFacultyNameRU())
                 .budgetPlaces(facultyForm.getBudgetPlaces())
                 .generalPlaces(facultyForm.getGeneralPlaces())
-                .requiredSubjects(findSubjectsByNames(facultyForm.getRequiredSubjects()))
+                .requiredSubjects(findSubjectsById(facultyForm.getRequiredSubjects()))
                 .recruitment(facultyForm.getRecruitment())
                 .build());
     }
@@ -117,7 +124,7 @@ public class FacultyService {
     }
 
 
-    private List<Subject> findSubjectsByNames(List<String> ids){
+    private List<Subject> findSubjectsById(List<String> ids){
 
         List<Subject> subjects = new ArrayList<>();
         for (String id: ids) {

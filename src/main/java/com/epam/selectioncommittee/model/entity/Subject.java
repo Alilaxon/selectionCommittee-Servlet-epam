@@ -29,8 +29,6 @@ public class Subject implements Serializable {
 
     public String getNameEN() {
 
-        System.out.println("getNameEN");
-
         return nameEN;
     }
 

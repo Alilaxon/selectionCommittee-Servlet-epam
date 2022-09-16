@@ -15,20 +15,24 @@ import java.util.List;
 public class SubjectDao implements SubjectRepository {
     @Override
     public Subject save(Subject subject) {
+
+        System.out.println(subject.toString());
         try (Connection connection = DBManager.getInstance().getConnection()){
             PreparedStatement statement = connection
            .prepareStatement("INSERT INTO subjects(name_en, name_ru) VALUES (?,?)");
 
             statement.setString(1,subject.getNameEN());
             statement.setString(2,subject.getNameRU());
-            statement.executeQuery();
+            statement.execute();
             statement.close();
-            return subject;
+
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
 
+            System.out.println("catch SQLException");
+            e.printStackTrace();
+        }
+        return subject;
     }
 
     @Override
@@ -75,14 +79,22 @@ public class SubjectDao implements SubjectRepository {
     @Override
     public Subject findById(Long id) {
 
+        Subject subject= null;
+
         try(Connection connection = DBManager.getInstance().getConnection()) {
 
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM subjects WHERE id =?");
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()){
+
+                subject = SubjectMapper.extractSubject(resultSet);
+
+            }
             statement.close();
 
-            return SubjectMapper.extractSubject(resultSet);
+            return subject;
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -91,19 +103,20 @@ public class SubjectDao implements SubjectRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public boolean deleteById(Long id) {
         try(Connection connection = DBManager.getInstance().getConnection()) {
 
             PreparedStatement statement = connection.prepareStatement("DELETE FROM subjects WHERE id =?");
             statement.setLong(1,id);
-            statement.executeQuery();
+            statement.execute();
             statement.close();
 
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
 
+            e.printStackTrace();
+        }
+       return true;
     }
 
    public List<Subject> findAllByFaculty(Long id){

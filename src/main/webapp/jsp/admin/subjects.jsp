@@ -39,8 +39,8 @@
         <td >${subject.getNameEN()}</td>
         <td>${subject.getNameRU()}</td>
         <td>
-            <form method="DELETE"
-                  action="/admin/subject/id=${subject.getId()} " >
+            <form method="POST" action="/deleteSubject " >
+                <input type="hidden" name="id" value="${subject.getId()}">
                 <button class="btn btn-danger" type = "submit" >
          <fmt:message key="common.delete"/>
     </button>
@@ -49,7 +49,7 @@
         </tbody>
 </c:forEach>
         <h2>
-            <a class="btn btn-primary" href="/admin/addSubject" >
+            <a class="btn btn-primary" href="/addSubject" >
     <fmt:message key="subjects.addSubject"/></a>
             </br>
             <a class="btn btn-primary" href="/" >
