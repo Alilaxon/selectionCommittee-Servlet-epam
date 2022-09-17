@@ -14,10 +14,7 @@ import com.epam.selectioncommittee.controller.command.subject.GetAllSubjects;
 import com.epam.selectioncommittee.controller.command.subject.GetCreateSubject;
 import com.epam.selectioncommittee.controller.command.subject.PostCreateSubject;
 import com.epam.selectioncommittee.controller.command.subject.PostDeleteSubject;
-import com.epam.selectioncommittee.controller.command.user.GetCreateUser;
-import com.epam.selectioncommittee.controller.command.user.GetLogin;
-import com.epam.selectioncommittee.controller.command.user.GetUserPage;
-import com.epam.selectioncommittee.controller.command.user.PostCreateUser;
+import com.epam.selectioncommittee.controller.command.user.*;
 import com.epam.selectioncommittee.controller.util.url.*;
 import com.epam.selectioncommittee.model.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
@@ -107,6 +104,7 @@ public class FrontController extends HttpServlet {
         // User GET commands
 
         getCommands.put(UserUrl.LOGIN,new GetLogin());
+        getCommands.put(UserUrl.REGISTERED,new GetUserRegistered());
 
         getCommands.put(UserUrl.USER,
                 new GetUserPage(serviceFactory.createUserService(),

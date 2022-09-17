@@ -20,7 +20,7 @@
 
 <div class="container">
 
-  <form class="form-signin" method="POST" action="${pageContext.request.contextPath}/registration/form">
+  <form class="form-signin" method="POST" action="${pageContext.request.contextPath}/registration">
 
 
 
@@ -40,7 +40,7 @@
     <label for="email"><fmt:message key="registration.email"/>
       <input class="form-control" type="text"
              placeholder="<fmt:message key="registration.email.field"/>"
-             name=="email" id="email" required="required">
+             name="email" id="email" required="required">
     </label>
 
     <label for="firstname"><fmt:message key="registration.firstname"/>
@@ -64,7 +64,7 @@
     </label>
 
     <label for="institution"> <fmt:message key="registration.institution"/>
-      <input class="form-control" type="text"
+      <input class="form-control" type="text" name="institution"
              field="institution" id="institution" required="required">
     </label>
     <br>

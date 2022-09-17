@@ -38,7 +38,7 @@ public class UserService {
 
         checkUsername(userForm.getUsername());
         checkEmail(userForm.getEmail());
-
+        log.info("{}",userForm.toString());
 
         log.info("User '{}' was created", userForm.getUsername());
 
@@ -66,11 +66,17 @@ public class UserService {
 
             if (!user.getBlocked()) {
 
+                log.warn("User = {} enter into system",user.getUsername());
+
                 return user;
             } else {
+                log.warn("User = {} is blocked",user.getUsername());
                 throw new UserIsBlockedException();
+
             }
         } else {
+            log.warn("User = {} not found",user.getUsername());
+
             throw new AuthenticationException();
         }
     }
@@ -109,16 +115,7 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-//    @Override
-//    public UserDetails loadUserByUsername(String username)
-//            throws UsernameNotFoundException {
-//        User user = findByUsername(username);
-//        if (user == null) {
-//            log.warn("User '{}' not found", username);
-//            throw new UsernameNotFoundException("User not found");
-//        }
-//        return user;
-//    }
+
 
 
     public List<User> getAllUsers() {
@@ -136,7 +133,7 @@ public class UserService {
         User user = userRepository.findById(id);
         user.setBlocked(true);
         log.info(" '{}' is blocked", user.getUsername());
-        return userRepository.save(user);
+        return userRepository.update(user);
     }
 
     public User unblockUserById(Long id) {
@@ -145,7 +142,7 @@ public class UserService {
         user.setBlocked(false);
         log.info(" '{}' is unblocked", user.getUsername());
 
-        return userRepository.save(user);
+        return userRepository.update(user);
 
     }
 }

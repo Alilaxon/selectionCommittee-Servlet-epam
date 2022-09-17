@@ -14,15 +14,18 @@ public class PositionDao implements PositionRepository {
     @Override
     public Position findByPositionType(Position.PositionType type) {
 
+        Position position = null;
 
         try(Connection connection = DBManager.getInstance().getConnection()) {
 
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM positions WHERE position_name =?");
             statement.setString(1, type.name());
             ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) position = PositionMapper.extractPosition(resultSet, Columns.ID);
             statement.close();
 
-            return PositionMapper.extractPosition(resultSet, Columns.ID);
+            return position;
 
         } catch (Exception e) {
             throw new RuntimeException(e);

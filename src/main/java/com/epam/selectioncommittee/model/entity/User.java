@@ -132,4 +132,21 @@ public class User implements Serializable {
     public void setBlocked(Boolean blocked) {
         this.blocked = blocked;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", surname='" + surname + '\'' +
+                ", city='" + city + '\'' +
+                ", region='" + region + '\'' +
+                ", institution='" + institution + '\'' +
+                ", role=" + role +
+                ", blocked=" + blocked +
+                '}';
+    }
 }

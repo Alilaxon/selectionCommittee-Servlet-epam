@@ -42,7 +42,7 @@
         <td>${user.getEmail()}</td>
         <td>${user.getBlocked()}</td>
         <td>
-            <form method="PATCH" action="@{/admin/user}">
+            <form method="POST" action="/blockUser">
 
                 <input type="hidden" name="userId" value="${user.id}">
                 <input type="hidden" name="userBlocked" value="${user.blocked}">

@@ -30,11 +30,9 @@ public class FacultyDao implements FacultyRepository {
             if (affectedRows == 0) {
                 throw new SQLException("Creating faculty failed, no rows affected.");
             }
-
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     faculty.setId(generatedKeys.getLong(1));
-
                 }
                 else {
                     throw new SQLException("Creating user failed, no ID obtained.");

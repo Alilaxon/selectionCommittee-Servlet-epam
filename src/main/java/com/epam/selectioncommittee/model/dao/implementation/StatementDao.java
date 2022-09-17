@@ -3,7 +3,6 @@ package com.epam.selectioncommittee.model.dao.implementation;
 import com.epam.selectioncommittee.model.dao.DBmanager.DBManager;
 import com.epam.selectioncommittee.model.dao.StatementRepository;
 import com.epam.selectioncommittee.model.dao.mapper.StatementMapper;
-import com.epam.selectioncommittee.model.entity.Faculty;
 import com.epam.selectioncommittee.model.entity.Statement;
 import com.epam.selectioncommittee.model.entity.User;
 
@@ -36,13 +35,29 @@ public class StatementDao implements StatementRepository {
     }
 
     @Override
+    public Statement update(Statement statement) {
+        try (Connection connection = DBManager.getInstance().getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "UPDATE statements SET position_id = ? WHERE id = ?");
+
+            preparedStatement.setLong(1,statement.getPosition().getId());
+            preparedStatement.setLong(2,statement.getId());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return statement;
+    }
+
+    @Override
     public void deleteById(Long id) {
 
         try(Connection connection = DBManager.getInstance().getConnection()) {
 
             PreparedStatement statement = connection.prepareStatement("DELETE FROM statements WHERE id =?");
             statement.setLong(1,id);
-            statement.executeQuery();
+            statement.execute();
             statement.close();
 
 
@@ -59,7 +74,10 @@ public class StatementDao implements StatementRepository {
 
         try(Connection connection = DBManager.getInstance().getConnection()) {
 
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM statements WHERE user_id=?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM statements\n" +
+                    "    JOIN faculties f on f.id = statements.faculty_id\n" +
+                    "    JOIN users u on u.id = statements.user_id\n" +
+                    "    JOIN positions p on p.id = statements.position_id WHERE statements.user_id =?");
             statement.setLong(1,user.getId());
             ResultSet resultSet = statement.executeQuery();
 
@@ -75,13 +93,16 @@ public class StatementDao implements StatementRepository {
     }
 
     @Override
-    public List<Statement> findAllByFacultyId(Faculty faculty) {
+    public List<Statement> findAllByFacultyId(Long facultyId) {
         List<Statement> statements = new ArrayList<>();
 
         try(Connection connection = DBManager.getInstance().getConnection()) {
 
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM statements WHERE faculty_id=?");
-            statement.setLong(1,faculty.getId());
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM statements\n" +
+                    "    JOIN faculties f on f.id = statements.faculty_id\n" +
+                    "    JOIN users u on u.id = statements.user_id\n" +
+                    "    JOIN positions p on p.id = statements.position_id WHERE statements.faculty_id =?");
+            statement.setLong(1,facultyId);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()){
@@ -126,11 +147,11 @@ public class StatementDao implements StatementRepository {
     }
 
     @Override
-    public void saveAll(List<Statement> statements) {
+    public void updateAll(List<Statement> statements) {
 
         for (Statement statement: statements) {
 
-            save(statement);
+            update(statement);
 
         }
     }

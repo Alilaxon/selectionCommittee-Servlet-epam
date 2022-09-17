@@ -97,4 +97,18 @@ public class UserForm {
     public void setInstitution(String institution) {
         this.institution = institution;
     }
+
+    @Override
+    public String toString() {
+        return "UserForm{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", surname='" + surname + '\'' +
+                ", city='" + city + '\'' +
+                ", region='" + region + '\'' +
+                ", institution='" + institution + '\'' +
+                '}';
+    }
 }

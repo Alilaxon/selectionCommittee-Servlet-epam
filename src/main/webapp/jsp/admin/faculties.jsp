@@ -33,7 +33,6 @@
                         <fmt:message key="faculties.sortByName"/>
                         <input type="hidden" name="sort" value="name">
                         <input type="hidden" name="order" value="desc">
-
                     </button>
                    </c:if>
 
@@ -160,9 +159,12 @@
                                 <fmt:message key="common.edit"/>
                             </a>
                         </form>
-                        <form>
-                            <a class="btn btn-secondary" href="/admin/statements?facultyId=${faculty.getId()}">
-                                <fmt:message key="faculties.statements"/></a>
+                        <form method="get" action="/statements">
+                            <button class="btn btn-secondary" type="submit">
+                                <fmt:message key="faculties.statements"/>
+                                <input type="hidden" name="facultyId" value="${faculty.getId()}">
+
+                            </button>
                             <br/>
                         </form>
 

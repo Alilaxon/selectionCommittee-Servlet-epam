@@ -7,7 +7,7 @@ public class StatementUrl {
 
     public static final String CREATE_STATEMENT = "/user/statement";
 
-    public static final String STATEMENTS = "/admin/statements";
+    public static final String STATEMENTS = "/statements";
 
-    public static final String DELETE_STATEMENT = "/statement/{id}";
+    public static final String DELETE_STATEMENT = "/DeleteStatement";
 }

@@ -65,9 +65,9 @@ public class StatementService {
         return statementRepository.findAllByUserId(user);
     }
 
-    public List<Statement> findAllStatementsByFaculty(Faculty faculty) {
+    public List<Statement> findAllStatementsByFaculty(Long facultyId) {
 
-        return statementRepository.findAllByFacultyId(faculty);
+        return statementRepository.findAllByFacultyId(facultyId);
     }
 
 //    public Page<Statement> findAllStatementsByFaculty(Faculty faculty, Pageable pageable) {
@@ -77,7 +77,7 @@ public class StatementService {
 
     public void finalizeStatements(Faculty faculty) {
         //находит все заявления на факультет
-        List<Statement> statements = findAllStatementsByFaculty(faculty);
+        List<Statement> statements = findAllStatementsByFaculty(faculty.getId());
         // устанавливает всем позицию REJECTED
         statements.stream()
                 .forEach(statement -> statement.setPosition(
@@ -105,7 +105,7 @@ public class StatementService {
                 deleteOtherStatements(statement);
             }
         }
-        statementRepository.saveAll(statements);
+        statementRepository.updateAll(statements);
     }
 
     private void checkIfRegistered(Long userId , Long facultyId) throws UserAlreadyRegisteredException {

@@ -35,4 +35,12 @@ public class Role implements Serializable {
     public enum RoleName{
         USER,ADMIN,GUEST
     }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", roleName=" + roleName +
+                '}';
+    }
 }

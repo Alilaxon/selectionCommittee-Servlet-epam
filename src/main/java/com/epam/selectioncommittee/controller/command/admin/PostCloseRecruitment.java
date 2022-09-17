@@ -27,7 +27,7 @@ public class PostCloseRecruitment implements Command {
        boolean recruit = Boolean.parseBoolean((request.getParameter("facultyOpen")));
 
        log.info("faculty id = {} , status {}",facultyId,recruit);
-        //TODO
+
         if (recruit) {
             facultyService.openFacultyById(facultyId);
         } else {

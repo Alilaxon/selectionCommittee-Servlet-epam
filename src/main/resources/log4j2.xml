@@ -7,7 +7,7 @@
         </Console>
 
         <RollingFile name="RollingFile"
-                     fileName="./logs/spring-boot-logger-log4j2.log"
+                     fileName="C:/Users/User/IdeaProjects/selectionCommittee-Servlet-epam/logs/logger-log4j2.log"
                      filePattern="./logs/$${date:yyyy-MM}/$${date:dd}/log4j2-file-%d{dd-MM-yyyy}-№-%i.log">
             <PatternLayout>
                 <pattern>%d %p %C{1.} [%t] %m%n</pattern>
