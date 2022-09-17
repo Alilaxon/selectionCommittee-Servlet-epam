@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="/jsp/parts/bootstrap.jsp" %>
 <%@include file="/jsp/parts/header.jsp"%>
+
 <%--
   Created by IntelliJ IDEA.
   User: User

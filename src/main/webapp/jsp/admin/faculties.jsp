@@ -1,6 +1,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib uri="/WEB-INF/tld/myTags.tld" prefix="myTags"%>
 <%--
   Created by IntelliJ IDEA.
   User: User
@@ -96,17 +96,19 @@
                 <h3>
                     <div class="card-header">
 
-                        <c:if test="${sessionScope.lang == 'en'}">
-                        <p class="card-title">
-                            <fmt:message key="faculties.name"/>:${faculty.getFacultyName()}
-                        </p>
-                        </c:if>
+                        <p> <myTags:facultyLocal faculty="${faculty}"></myTags:facultyLocal> </p>
 
-                        <c:if test="${sessionScope.lang == 'ru'}">
-                            <p class="card-title">
-                                <fmt:message key="faculties.name"/>:${faculty.getFacultyNameRU()}
-                            </p>
-                        </c:if>
+<%--                        <c:if test="${sessionScope.lang == 'en'}">--%>
+<%--                        <p class="card-title">--%>
+<%--                            <fmt:message key="faculties.name"/>:${faculty.getFacultyName()}--%>
+<%--                        </p>--%>
+<%--                        </c:if>--%>
+
+<%--                        <c:if test="${sessionScope.lang == 'ru'}">--%>
+<%--                            <p class="card-title">--%>
+<%--                                <fmt:message key="faculties.name"/>:${faculty.getFacultyNameRU()}--%>
+<%--                            </p>--%>
+<%--                        </c:if>--%>
 
 
                     </div>
@@ -122,13 +124,14 @@
                     <c:forEach var="subject" items="${faculty.getRequiredSubjects()}">
                     <div>
                         <h5>
-                            <c:if test="${sessionScope.lang == 'en'}">
-                            <p>${subject.getNameEN()}</p>
-                            </c:if>
+                         <p>   <myTags:subjectLocal subject="${subject}"></myTags:subjectLocal></p>
+<%--                            <c:if test="${sessionScope.lang == 'en'}">--%>
+<%--                            <p>${subject.getNameEN()}</p>--%>
+<%--                            </c:if>--%>
 
-                            <c:if test="${sessionScope.lang == 'ru'}">
-                            <p>${subject.getNameRU()}</p>
-                            </c:if>
+<%--                            <c:if test="${sessionScope.lang == 'ru'}">--%>
+<%--                            <p>${subject.getNameRU()}</p>--%>
+<%--                            </c:if>--%>
                         </h5>
                     </div>
                     </c:forEach>
@@ -155,11 +158,11 @@
                                     type="submit" ><fmt:message key="common.delete"/>
                             </button>
                         </form>
-                        <form>
-                            <a class="btn btn-secondary"
-                               href="/admin/updateFaculty?facultyId=${faculty.getId()}">
+                        <form method="get" action="/updateFaculty">
+                            <button class="btn btn-secondary" type="submit">
                                 <fmt:message key="common.edit"/>
-                            </a>
+                                <input type="hidden" name="facultyId" value="${faculty.getId()}">
+                            </button>
                         </form>
                         <form method="get" action="/statements">
                             <button class="btn btn-secondary" type="submit">
