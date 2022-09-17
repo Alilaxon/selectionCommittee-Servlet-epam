@@ -46,6 +46,7 @@ public class SubjectService {
 
             throw new SubjectIsReservedException();
         }
+
     }
     public void deleteSubject(Long id) {
 
@@ -53,4 +54,5 @@ public class SubjectService {
 
         subjectRepository.deleteById(id);
     }
+
 }

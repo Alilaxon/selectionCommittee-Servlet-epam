@@ -8,12 +8,12 @@ public class StatementForm {
 
     String facultyId;
 
-    List<String> grades;
+    List<Long> grades;
 
     public StatementForm() {
     }
 
-    public StatementForm(String userId, String facultyId, List<String> grades) {
+    public StatementForm(String userId, String facultyId, List<Long> grades) {
         this.userId = userId;
         this.facultyId = facultyId;
         this.grades = grades;
@@ -35,11 +35,11 @@ public class StatementForm {
         this.facultyId = facultyId;
     }
 
-    public List<String> getGrades() {
+    public List<Long> getGrades() {
         return grades;
     }
 
-    public void setGrades(List<String> grades) {
+    public void setGrades(List<Long> grades) {
         this.grades = grades;
     }
 }

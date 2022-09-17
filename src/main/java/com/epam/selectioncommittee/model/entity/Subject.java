@@ -1,6 +1,7 @@
 package com.epam.selectioncommittee.model.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Subject implements Serializable {
 
@@ -51,5 +52,19 @@ public class Subject implements Serializable {
                 "nameEN='" + nameEN + '\'' +
                 ", nameRU='" + nameRU + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Subject)) return false;
+        Subject subject = (Subject) o;
+        return nameEN.equals(subject.nameEN) &&
+                nameRU.equals(subject.nameRU);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nameEN, nameRU);
     }
 }

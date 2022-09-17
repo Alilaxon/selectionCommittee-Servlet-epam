@@ -51,7 +51,7 @@ public class StatementService {
                 .userId(userRepository.findById(userId))
                 .facultyId(facultyRepository.findById(facultyId))
                 .positionId(positionRepository.findByPositionType(Position.PositionType.REGISTERED))
-                .gradePointAverage(AverageGrade.counter(gradesAdapter(statementForm.getGrades())))
+                .gradePointAverage(AverageGrade.counter(statementForm.getGrades()))
                 .build());
     }
 

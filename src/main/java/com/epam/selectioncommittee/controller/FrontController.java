@@ -137,7 +137,7 @@ public class FrontController extends HttpServlet {
         // Statement GET commands
         getCommands.put(StatementUrl.CREATE_STATEMENT,
                 new GetCreateStatement(serviceFactory.createFacultyService(),
-                        serviceFactory.createUserService()));
+                        serviceFactory.createUserService(),serviceFactory.createStatementService()));
         getCommands.put(StatementUrl.STATEMENTS,
                 new GetStatements(serviceFactory.createStatementService()));
 

@@ -1,6 +1,7 @@
 package com.epam.selectioncommittee.model.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Statement implements Serializable {
     private Long id;
@@ -64,5 +65,29 @@ public class Statement implements Serializable {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Statement)) return false;
+        Statement statement = (Statement) o;
+        return facultyId.equals(statement.facultyId) && userId.equals(statement.userId) && gradePointAverage.equals(statement.gradePointAverage) && position.equals(statement.position);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(facultyId, userId, gradePointAverage, position);
+    }
+
+    @Override
+    public String toString() {
+        return "Statement{" +
+                "id=" + id +
+                ", facultyId=" + facultyId +
+                ", userId=" + userId +
+                ", gradePointAverage=" + gradePointAverage +
+                ", position=" + position +
+                '}';
     }
 }

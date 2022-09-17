@@ -1,6 +1,7 @@
 package com.epam.selectioncommittee.model.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class User implements Serializable {
 
@@ -148,5 +149,28 @@ public class User implements Serializable {
                 ", role=" + role +
                 ", blocked=" + blocked +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return username.equals(user.username) &&
+                password.equals(user.password) &&
+                email.equals(user.email)
+                && firstname.equals(user.firstname)
+                && surname.equals(user.surname)
+                && city.equals(user.city)
+                && region.equals(user.region)
+                && institution.equals(user.institution)
+                && role.equals(user.role) && blocked.equals(user.blocked);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password, email,
+                firstname, surname, city,
+                region, institution, role, blocked);
     }
 }

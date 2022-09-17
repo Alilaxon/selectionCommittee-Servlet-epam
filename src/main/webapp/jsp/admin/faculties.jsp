@@ -136,10 +136,12 @@
                     <div >
                         <c:if test="${faculty.getRecruitment() == false}">
                         <div>
-                            <a class="btn btn-secondary"
-                               href="/user/statement?facultyId=${faculty.getId()}">
+                            <form method="get" action="/createStatement">
+                            <button class="btn btn-secondary" type="submit">
                                 <fmt:message key="faculties.registration"/>
-                            </a>
+                                <input type="hidden" name="facultyId" value="${faculty.getId()}">
+                            </button>
+                            </form>
                         </div>
                         </c:if>
                     </div>
@@ -177,13 +179,13 @@
                                    name="facultyOpen"
                                    value="${faculty.getRecruitment()}">
 
-                            <c:if test="${faculty.getRecruitment() == false}">
+                            <c:if test="${faculty.getRecruitment() == true}">
                             <button class="btn btn-success" type="submit">
                                 <fmt:message key="faculties.open"/>
                             </button>
                             </c:if>
 
-                            <c:if test="${faculty.getRecruitment() == true}">
+                            <c:if test="${faculty.getRecruitment() == false}">
                             <button class="btn btn-danger" type="submit">
                                 <fmt:message key="faculties.close"/>
                             </button>

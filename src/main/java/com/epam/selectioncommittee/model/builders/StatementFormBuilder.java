@@ -3,6 +3,7 @@ package com.epam.selectioncommittee.model.builders;
 import com.epam.selectioncommittee.model.dto.StatementForm;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StatementFormBuilder {
 
@@ -10,7 +11,7 @@ public class StatementFormBuilder {
 
     String facultyId;
 
-    List<String> grades;
+    List<Long> grades;
 
     public StatementFormBuilder() {
     }
@@ -30,7 +31,8 @@ public class StatementFormBuilder {
     }
 
     public StatementFormBuilder grades(List<String> grades) {
-        this.grades = grades;
+
+        this.grades = grades.stream().map(Long::valueOf).collect(Collectors.toList());
         return this;
     }
 
