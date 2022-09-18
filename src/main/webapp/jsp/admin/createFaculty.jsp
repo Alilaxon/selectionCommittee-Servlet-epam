@@ -33,7 +33,7 @@
             <label for="facultyName" > <fmt:message key="faculties.name"/>
                 <input class="form-control" type="text" name="facultyName"
                        placeholder="<fmt:message key="faculties.registration.nameEN"/>"
-                       id="facultyName"/>
+                       id="facultyName" required="required"/>
             </label>
 
 
@@ -42,18 +42,20 @@
 
                 <input class="form-control" type="text"  name="facultyNameRU"
                        placeholder="<fmt:message key="faculties.registration.nameRU"/>"
-                       id="facultyNameRU"/>
+                       id="facultyNameRU" required="required"/>
             </label>
 
 
             <label for="budgetPlaces" ><fmt:message key="faculties.budgetPlaces"/>
-                <input class="form-control" type="text" name="budgetPlaces" id="budgetPlaces"/>
+                <input class="form-control" type="text" name="budgetPlaces"
+                       id="budgetPlaces" required="required"/>
             </label>
 
 
 
             <label for="generalPlaces" ><fmt:message key="faculties.generalPlaces"/>
-                <input class="form-control" type="text" name="generalPlaces" id="generalPlaces"/>
+                <input class="form-control" type="text" name="generalPlaces"
+                       id="generalPlaces" required="required"/>
             </label>
 
 

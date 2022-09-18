@@ -115,9 +115,9 @@
                 </h3>
                 <div class="card-body">
                     <h4>
-                        <p><fmt:message key="faculties.budgetPlaces"/>:${faculty.getBudgetPlaces()}</p>
+                        <p><fmt:message key="faculties.budgetPlaces"/>: ${faculty.getBudgetPlaces()}</p>
 
-                        <p ><fmt:message key="faculties.generalPlaces"/>:${faculty.getGeneralPlaces()}</p>
+                        <p ><fmt:message key="faculties.generalPlaces"/>: ${faculty.getGeneralPlaces()}</p>
 
                         <p><fmt:message key="faculties.requiredSubjects"/></p>
                     </h4>
@@ -137,15 +137,18 @@
                     </c:forEach>
 
                     <div >
+                        <c:if test="${sessionScope.role == 'USER'}">
                         <c:if test="${faculty.getRecruitment() == false}">
                         <div>
                             <form method="get" action="/createStatement">
                             <button class="btn btn-secondary" type="submit">
                                 <fmt:message key="faculties.registration"/>
                                 <input type="hidden" name="facultyId" value="${faculty.getId()}">
+                                <input type="hidden" name="userId" value="${sessionScope.user.getId()}">
                             </button>
                             </form>
                         </div>
+                        </c:if>
                         </c:if>
                     </div>
 

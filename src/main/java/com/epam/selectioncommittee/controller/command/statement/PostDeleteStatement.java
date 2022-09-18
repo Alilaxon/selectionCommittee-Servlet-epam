@@ -15,7 +15,9 @@ public class PostDeleteStatement implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
+       Long id =Long.parseLong(request.getParameter("statementId"));
+       statementService.deleteStatement(id);
         //TODO
-        return null;
+        return "redirect:/";
     }
 }

@@ -60,20 +60,30 @@
 </div>
 
 
-<%--<nav aria-label="Page navigation example" th:if="${pages > 1}">--%>
-<%--    <ul class="pagination justify-content-center">--%>
+<nav aria-label="Page navigation example" th:if="${pages > 1}">
+    <ul class="pagination justify-content-center">
 
-<%--        <th:block th:each="i: ${#numbers.sequence(1, pages)}">--%>
+        <block th:each="i: ${#numbers.sequence(1, pages)}">
 
-<%--            <li class="page-item myselect active" th:value="${i}" th:if="${#strings.equals(i, page)}">--%>
-<%--                <a class="page-link" th:href="@{'/admin/subjects?page='+ ${i}}"  th:text="${i}"></a>--%>
-<%--            </li>--%>
-<%--            <li class="page-item myselect" th:value="${i}" th:if="${!#strings.equals(i, page)}">--%>
-<%--                <a class="page-link"th:href="@{'/admin/subjects?page='+ ${i}}" th:text="${i}"></a>--%>
-<%--            </li>--%>
-<%--        </th:block>--%>
+            <c:if test="${i == page}">
+            <li class="page-item myselect active" >
+                <form method="get" action="/subjects">
+                <a class="page-link" >${i}</a>
+                    <input type="hidden" name="page" value="${i}">
+                </form>
+            </li>
+            </c:if>
+           <c:if test="${i != page}">
+            <li class="page-item myselect">
+                <form method="get" action="/subjects">
+                <a class="page-link">${i}</a>
+                    <input type="hidden" name="page" value="${i}">
+                </form>
+            </li>
+          </c:if>
+        </block>
 
-<%--    </ul>--%>
-<%--</nav>--%>
+    </ul>
+</nav>
 </body>
 </html>

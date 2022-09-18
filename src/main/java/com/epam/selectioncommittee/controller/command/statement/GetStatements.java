@@ -1,7 +1,6 @@
 package com.epam.selectioncommittee.controller.command.statement;
 
 import com.epam.selectioncommittee.controller.command.Command;
-import com.epam.selectioncommittee.controller.command.faculty.GetAllFaculties;
 import com.epam.selectioncommittee.model.service.StatementService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class GetStatements implements Command {
 
-    private static final Logger log = LogManager.getLogger(GetAllFaculties.class);
+    private static final Logger log = LogManager.getLogger(GetStatements.class);
 
     StatementService statementService;
 

@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.*;
 
 
@@ -25,6 +26,8 @@ class SubjectServiceTest {
     private Subject SUBJECT;
 
     private SubjectForm SUBJECT_FORM;
+
+    private final Long ID = 1L;
 
     private String NAME_EN = "English";
 
@@ -55,6 +58,14 @@ class SubjectServiceTest {
     }
 
     @Test
+    void createSubjectThrowsSubjectIsReservedException() {
+        when(subjectRepository.existsByNameEN(NAME_EN)).thenReturn(true);
+        when(subjectRepository.save(SUBJECT)).thenReturn(SUBJECT);
+        assertThrows(SubjectIsReservedException.class,()->subjectService.createSubject(SUBJECT_FORM));
+
+    }
+
+    @Test
     void getAllSubjects() {
         when(subjectRepository.findAll()).thenReturn(List.of(SUBJECT));
         assertEquals(subjectService.getAllSubjects(),List.of(SUBJECT));
@@ -63,6 +74,8 @@ class SubjectServiceTest {
 
     @Test
     void deleteSubject() {
+        subjectService.deleteSubject(ID);
+        verify(subjectRepository,times(1)).deleteById(ID);
 
         //TODO
     }

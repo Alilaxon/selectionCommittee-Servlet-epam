@@ -7,12 +7,17 @@ import com.epam.selectioncommittee.model.dao.mapper.FacultyMapper;
 import com.epam.selectioncommittee.model.dao.mapper.SubjectMapper;
 import com.epam.selectioncommittee.model.entity.Faculty;
 import com.epam.selectioncommittee.model.entity.Subject;
+import com.epam.selectioncommittee.model.service.FacultyService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FacultyDao implements FacultyRepository {
+
+    private static final Logger log = LogManager.getLogger(FacultyService.class);
     @Override
     public Faculty save(Faculty faculty) {
         try (Connection connection = DBManager.getInstance().getConnection()){
@@ -118,15 +123,20 @@ public class FacultyDao implements FacultyRepository {
 
     @Override
     public Faculty findById(Long id) {
-        Faculty faculty = null;
+
         try(Connection connection = DBManager.getInstance().getConnection()) {
 
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM faculties WHERE id =?");
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) faculty = FacultyMapper.extractFaculty(resultSet, Columns.ID);
-            statement.close();
+            Faculty faculty = null;
+            while (resultSet.next()) faculty = FacultyMapper.extractFaculty(resultSet,
+                    Columns.ID,findAllSubjectsByFaculty(resultSet.getLong(Columns.ID)));
 
+            statement.close();
+            resultSet.close();
+
+            log.info("temp ms {}",faculty.toString());
             return faculty;
 
         } catch (Exception e) {
@@ -191,6 +201,7 @@ public class FacultyDao implements FacultyRepository {
                 subjects.add(SubjectMapper.extractSubject(resultSet));
             }
             statement.close();
+            resultSet.close();
 
 
         } catch (Exception e) {

@@ -41,7 +41,9 @@ public class StatementService {
 
     public Statement createStatement(StatementForm statementForm) throws UserAlreadyRegisteredException {
         Long userId = Long.valueOf(statementForm.getUserId());
-        Long facultyId = Long.valueOf(statementForm.getUserId());
+        Long facultyId = Long.valueOf(statementForm.getFacultyId());
+
+        log.info("temp ms {}",statementForm.toString());
 
         checkIfRegistered(userId,facultyId);
 
@@ -114,6 +116,12 @@ public class StatementService {
 
             throw new UserAlreadyRegisteredException();
         }
+
+    }
+
+    public boolean isRegistered(Long userId , Long facultyId)  {
+
+        return  statementRepository.existsByUserIdAndAndFacultyId(userId, facultyId) ;
 
     }
 

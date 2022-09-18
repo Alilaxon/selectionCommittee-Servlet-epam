@@ -38,4 +38,12 @@ public class Position implements Serializable {
     public void setPositionType(PositionType positionType) {
         this.positionType = positionType;
     }
+
+    @Override
+    public String toString() {
+        return "Position{" +
+                "id=" + id +
+                ", positionType=" + positionType +
+                '}';
+    }
 }

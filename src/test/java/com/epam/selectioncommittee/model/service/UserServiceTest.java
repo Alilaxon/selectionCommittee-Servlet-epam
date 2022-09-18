@@ -7,7 +7,9 @@ import com.epam.selectioncommittee.model.dao.UserRepository;
 import com.epam.selectioncommittee.model.dto.UserForm;
 import com.epam.selectioncommittee.model.entity.Role;
 import com.epam.selectioncommittee.model.entity.User;
+import com.epam.selectioncommittee.model.exception.AuthenticationException;
 import com.epam.selectioncommittee.model.exception.EmailIsReservedException;
+import com.epam.selectioncommittee.model.exception.UserIsBlockedException;
 import com.epam.selectioncommittee.model.exception.UsernameIsReservedException;
 import com.epam.selectioncommittee.model.service.util.PasswordEncoder;
 import org.junit.jupiter.api.BeforeEach;
@@ -110,8 +112,28 @@ class UserServiceTest {
     }
 
     @Test
-    void authentication() {
-        //TODO
+    void authentication() throws UserIsBlockedException, AuthenticationException {
+        when(passwordEncoder.encode(PASSWORD)).thenReturn(PASSWORD_ENCODED);
+        when(userRepository.findByUsernameAndPassword(USERNAME,PASSWORD_ENCODED)).thenReturn(USER);
+        assertEquals(userService.Authentication(USERNAME,PASSWORD),USER);
+
+    }
+
+    @Test
+    void authenticationThrowsAuthenticationException()  {
+        when(passwordEncoder.encode(PASSWORD)).thenReturn(PASSWORD_ENCODED);
+        when(userRepository.findByUsernameAndPassword(USERNAME,PASSWORD_ENCODED)).thenReturn(null);
+        assertThrows(AuthenticationException.class,() -> userService.Authentication(USERNAME,PASSWORD));
+
+    }
+
+    @Test
+    void authenticationThrowsUserIsBlockedException()  {
+        USER.setBlocked(true);
+        when(passwordEncoder.encode(PASSWORD)).thenReturn(PASSWORD_ENCODED);
+        when(userRepository.findByUsernameAndPassword(USERNAME,PASSWORD_ENCODED)).thenReturn(USER);
+        assertThrows(UserIsBlockedException.class,() -> userService.Authentication(USERNAME,PASSWORD));
+
     }
 
     @Test

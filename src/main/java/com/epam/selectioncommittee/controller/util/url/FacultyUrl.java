@@ -1,6 +1,11 @@
 package com.epam.selectioncommittee.controller.util.url;
 
 public class FacultyUrl {
+
+    private FacultyUrl() {
+    }
+
+    public static final String ADMIN = "/admin";
     public static final String CREATE_FACULTY = "/addFaculty";
 
     public static final String FACULTIES = "/faculties";

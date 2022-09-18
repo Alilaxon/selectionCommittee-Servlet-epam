@@ -5,6 +5,8 @@ import com.epam.selectioncommittee.model.dao.UserRepository;
 import com.epam.selectioncommittee.model.dao.mapper.Columns;
 import com.epam.selectioncommittee.model.dao.mapper.UserMapper;
 import com.epam.selectioncommittee.model.entity.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao implements UserRepository {
+
+    private static final Logger log = LogManager.getLogger(UserDao.class);
     @Override
     public User save(User user) {
         try (Connection connection = DBManager.getInstance().getConnection()){
@@ -98,9 +102,11 @@ public class UserDao implements UserRepository {
             statement.setString(1, username);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
+            User user = null;
+            while (resultSet.next())  user = UserMapper.extractUser(resultSet,Columns.ID);
             statement.close();
 
-            return UserMapper.extractUser(resultSet,Columns.ID);
+            return user;
 
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -1,7 +1,12 @@
 package com.epam.selectioncommittee.controller.util.url;
 
 public class AdminUrl {
-    public static final String ADMIN_PAGE = "/admin";
+
+    private AdminUrl() {
+    }
+
+    public static final String ADMIN = "/admin";
+    public static final String ADMIN_PAGE = "/adminPage";
 
     public static final String USERS = "/users";
 

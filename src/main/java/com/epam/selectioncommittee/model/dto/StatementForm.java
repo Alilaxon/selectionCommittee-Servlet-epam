@@ -42,4 +42,13 @@ public class StatementForm {
     public void setGrades(List<Long> grades) {
         this.grades = grades;
     }
+
+    @Override
+    public String toString() {
+        return "StatementForm{" +
+                "userId='" + userId + '\'' +
+                ", facultyId='" + facultyId + '\'' +
+                ", grades=" + grades +
+                '}';
+    }
 }

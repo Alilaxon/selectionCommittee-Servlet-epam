@@ -1,3 +1,9 @@
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="localization"/>
+<%@include file="/jsp/parts/bootstrap.jsp" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: User
@@ -9,8 +15,14 @@
 <html>
 <head>
     <title>Title</title>
+
+
 </head>
 <body>
-
+<div class="container">
+    <h1><a><fmt:message key="faculties.registration.exception"/></a>
+    </h1>
+<a class="btn btn-primary" href="/faculties" ><fmt:message key="faculties.registration.back"/></a>
+</div>
 </body>
 </html>

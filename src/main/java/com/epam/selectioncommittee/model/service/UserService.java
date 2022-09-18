@@ -75,7 +75,7 @@ public class UserService {
 
             }
         } else {
-            log.warn("User = {} not found",user.getUsername());
+            log.warn("User = {} not found",username);
 
             throw new AuthenticationException();
         }

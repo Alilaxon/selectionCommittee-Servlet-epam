@@ -121,6 +121,9 @@ class FacultyServiceTest {
 
     @Test
     void deleteFaculty() {
+        when(facultyRepository.findById(ID)).thenReturn(FACULTY_WITH_ID);
+        facultyService.deleteFaculty(ID);
+        verify(facultyRepository,times(1)).deleteById(ID);
         //TODO
     }
 

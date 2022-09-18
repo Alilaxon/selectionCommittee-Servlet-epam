@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
@@ -117,7 +118,15 @@ class StatementServiceTest {
     }
 
     @Test
+    void createStatementThrowsUserAlreadyRegisteredException() throws UserAlreadyRegisteredException {
+        when(statementRepository.existsByUserIdAndAndFacultyId(USER.getId(), FACULTY.getId())).thenReturn(true);
+        assertThrows(UserAlreadyRegisteredException.class,()->statementService.createStatement(STATEMENT_FORM));
+    }
+
+    @Test
     void deleteStatement() {
+        statementService.deleteStatement(ID);
+        verify(statementRepository,times(1)).deleteById(ID);
     }
 
     @Test

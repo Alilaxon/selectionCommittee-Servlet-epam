@@ -47,6 +47,8 @@ public class FrontController extends HttpServlet {
 
         setGetCommands(factory);
         setPostCommands(factory);
+
+        log.info("initialization");
     }
 
     @Override
@@ -148,6 +150,7 @@ public class FrontController extends HttpServlet {
 
         // User POST commands
         postCommands.put(UserUrl.REGISTRATION,new PostCreateUser(serviceFactory.createUserService()));
+        postCommands.put(UserUrl.LOGIN,new PostLogin(serviceFactory.createUserService()));
 
         // Admin POST commands
         postCommands.put(AdminUrl.BLOCK_USER,

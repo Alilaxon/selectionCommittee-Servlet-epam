@@ -5,6 +5,8 @@ import com.epam.selectioncommittee.model.dao.StatementRepository;
 import com.epam.selectioncommittee.model.dao.mapper.StatementMapper;
 import com.epam.selectioncommittee.model.entity.Statement;
 import com.epam.selectioncommittee.model.entity.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,21 +16,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StatementDao implements StatementRepository {
+
+    private static final Logger log = LogManager.getLogger(StatementDao.class);
     @Override
     public Statement save(Statement statement) {
+
+        log.info("{}",statement.toString());
+
         try (Connection connection = DBManager.getInstance().getConnection()){
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "INSERT INTO statements(faculty_id, user_id, gpa, position_id)" +
-                            " VALUES (?,?,?,?,?)");
+                            " VALUES (?,?,?,?)");
             preparedStatement.setLong(1, statement.getFacultyId().getId());
             preparedStatement.setLong(2, statement.getUserId().getId());
             preparedStatement.setLong(3,statement.getGradePointAverage());
             preparedStatement.setLong(4,1);
-            preparedStatement.executeQuery();
+            preparedStatement.executeUpdate();
             preparedStatement.close();
 
+        log.info("statement was created");
 
         } catch (SQLException e) {
+
+            log.warn("Catch SQLException");
+
             throw new RuntimeException(e);
         }
         return statement;
@@ -45,6 +56,7 @@ public class StatementDao implements StatementRepository {
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
+
             throw new RuntimeException(e);
         }
         return statement;
@@ -125,7 +137,7 @@ public class StatementDao implements StatementRepository {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM statements " +
                     "WHERE user_id =? AND faculty_id=?");
             statement.setLong(1,userId);
-            statement.setLong(1,facultyId);
+            statement.setLong(2,facultyId);
             ResultSet resultSet = statement.executeQuery();
 
             return resultSet.next();

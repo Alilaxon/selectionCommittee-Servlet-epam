@@ -52,14 +52,20 @@
 <%--               sec:authentication="name"--%>
 <%--               th:href="@{'/admin?id=' + ${#authentication.getPrincipal().getId()}}">--%>
 <%--            </a>--%>
+         <c:if test="${sessionScope.role == 'USER'}">
+             <form method="get" action="/user">
+            <button type="submit" class="btn btn-info">${sessionScope.user.getUsername()}
+                <input type="hidden" name="userId" value="${sessionScope.userId}">
+            </button>
+             </form>
+             <a class="btn btn-primary"
 
-<%--            <a class="btn btn-info"--%>
-<%--               style="color: white"--%>
-<%--               sec:authorize="hasAuthority('USER')"--%>
-<%--               sec:authentication="name"--%>
-<%--               th:href="@{'/user?id=' + ${#authentication.getPrincipal().getId()}}">--%>
-<%--            </a>--%>
+                href="/logout">
+                 <fmt:message key="main.logout"/>
+             </a>
+            </c:if>
 
+             <c:if test="${sessionScope.role == null}">
             <a class="btn btn-primary"
                href="${pageContext.request.contextPath}/registration">
                 <fmt:message key="main.registration"/>
@@ -69,11 +75,8 @@
                href="/login">
                 <fmt:message key="main.login"/>
             </a>
-            <a class="btn btn-primary"
+             </c:if>
 
-               href="/logout">
-                <fmt:message key="main.logout"/>
-            </a>
         </div>
 
 

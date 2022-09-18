@@ -29,4 +29,12 @@ public class SubjectForm {
     public void setNameRU(String nameRU) {
         this.nameRU = nameRU;
     }
+
+    @Override
+    public String toString() {
+        return "SubjectForm{" +
+                "nameEN='" + nameEN + '\'' +
+                ", nameRU='" + nameRU + '\'' +
+                '}';
+    }
 }

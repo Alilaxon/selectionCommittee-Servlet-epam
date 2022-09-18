@@ -12,7 +12,7 @@ public class StatementFormMapper {
 
         return StatementFormBuilder.builder()
                 .user(request.getParameter("userId"))
-                .faculty(request.getParameter("facultyid"))
+                .faculty(request.getParameter("facultyId"))
                 .grades(Arrays.asList(request.getParameterValues("grades")))
                 .build();
 

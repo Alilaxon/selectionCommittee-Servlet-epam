@@ -87,4 +87,17 @@ public class FacultyForm {
     public void setRequiredSubjects(List<String> requiredSubjects) {
         this.requiredSubjects = requiredSubjects;
     }
+
+    @Override
+    public String toString() {
+        return "FacultyForm{" +
+                "id=" + id +
+                ", facultyName='" + facultyName + '\'' +
+                ", facultyNameRU='" + facultyNameRU + '\'' +
+                ", budgetPlaces=" + budgetPlaces +
+                ", generalPlaces=" + generalPlaces +
+                ", recruitment=" + recruitment +
+                ", requiredSubjects=" + requiredSubjects +
+                '}';
+    }
 }
