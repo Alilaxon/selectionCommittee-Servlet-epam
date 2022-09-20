@@ -29,6 +29,6 @@ public class PostBlockUsers implements Command {
         } else {
             userService.blockUserById(userId);
         }
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 }

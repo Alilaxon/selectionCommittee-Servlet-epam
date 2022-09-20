@@ -107,6 +107,7 @@ public class FrontController extends HttpServlet {
 
         getCommands.put(UserUrl.LOGIN,new GetLogin());
         getCommands.put(UserUrl.REGISTERED,new GetUserRegistered());
+        getCommands.put(UserUrl.LOGOUT,new GetLogOut());
 
         getCommands.put(UserUrl.USER,
                 new GetUserPage(serviceFactory.createUserService(),

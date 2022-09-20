@@ -38,7 +38,7 @@ public class PostCreateFaculty implements Command {
             request.setAttribute("facultyForm", facultyForm);
             request.setAttribute("subjects", subjectService.getAllSubjects());
 
-            return "jsp/admin/createFaculty.jsp";
+            return "/jsp/admin/createFaculty.jsp";
         }
 
         try {
@@ -51,7 +51,7 @@ public class PostCreateFaculty implements Command {
             request.setAttribute("subjects", subjectService.getAllSubjects());
 
 
-            return "jsp/admin/createFaculty.jsp";
+            return "/jsp/admin/createFaculty.jsp";
         }
 
 

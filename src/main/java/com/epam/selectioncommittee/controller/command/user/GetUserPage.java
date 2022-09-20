@@ -21,8 +21,8 @@ public class GetUserPage implements Command {
     @Override
     public String execute(HttpServletRequest request) {
 
-        Long userId = Long.parseLong(request.getParameter("userId"));
-        User user = userService.findUserById(userId);
+        String username = request.getParameter("username");
+        User user = userService.findByName(username);
 
 
         request.setAttribute("statements",statementService.findAllStatementsByUserId(user));

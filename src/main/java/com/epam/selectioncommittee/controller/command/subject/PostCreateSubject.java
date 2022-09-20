@@ -23,11 +23,12 @@ public class PostCreateSubject implements Command {
 
         try {
             subjectService.createSubject(subjectForm);
+
         } catch (SubjectIsReservedException e) {
 
-            return "jsp/admin/createSubject.jsp";
+            return "/jsp/admin/createSubject.jsp";
         }
 
-        return "redirect:/subjects";
+        return "redirect:/admin/subjects";
     }
 }

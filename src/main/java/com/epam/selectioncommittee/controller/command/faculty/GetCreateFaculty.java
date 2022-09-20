@@ -23,6 +23,6 @@ public class GetCreateFaculty implements Command {
         request.setAttribute("subjectList", subjectService.getAllSubjects());
         request.setAttribute("facultyForm", new FacultyForm());
 
-        return "jsp/admin/createFaculty.jsp";
+        return "/jsp/admin/createFaculty.jsp";
     }
 }

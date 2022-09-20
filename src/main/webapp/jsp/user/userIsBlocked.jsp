@@ -7,24 +7,23 @@
 <%--
   Created by IntelliJ IDEA.
   User: User
-  Date: 17.09.2022
-  Time: 0:48
+  Date: 19.09.2022
+  Time: 20:33
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE>
-<html lang="en">
+<html>
 <head>
     <title>Title</title>
     <h1 class="display-1 text-center">
-        <fmt:message key="registration.completed"/>
+        <fmt:message key="user.isBlocked"/>
     </h1>
 </head>
 <body>
 <div class="container">
-<a class="btn btn-primary" href="/">
-    <fmt:message key="common.back"/>
-</a>
+    <a class="btn btn-primary" href="/">
+        <fmt:message key="common.back"/>
+    </a>
 </div>
 </body>
 </html>

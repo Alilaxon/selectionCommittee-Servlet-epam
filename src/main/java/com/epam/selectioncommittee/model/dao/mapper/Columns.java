@@ -28,6 +28,10 @@ public class Columns {
 
     public static final String ROLE_ID = "role_id";
 
+    //Role
+
+    public static final String ROLE_NAME = "role_name";
+
     // subject
 
     public static final String NAME_EN = "name_en";

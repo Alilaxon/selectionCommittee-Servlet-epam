@@ -18,7 +18,7 @@ public class PostDeleteSubject implements Command {
     public String execute(HttpServletRequest request) {
 
         subjectService.deleteSubject(Long.valueOf(request.getParameter(Columns.ID)));
-        //TODO
-        return "redirect:/subjects";
+
+        return "redirect:/admin/subjects";
     }
 }

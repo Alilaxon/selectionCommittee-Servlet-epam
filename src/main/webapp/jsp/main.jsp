@@ -15,7 +15,8 @@
 
 <%@include file="/jsp/parts/bootstrap.jsp"%>
 <%@include file="/jsp/parts/header.jsp"%>
-<html>
+<!DOCTYPE>
+<html lang="en">
 <head>
     <title>Title</title>
 </head>

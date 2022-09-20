@@ -15,7 +15,7 @@ public class GetCreateSubject implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
-        //TODO
-        return "jsp/admin/createSubject.jsp";
+
+        return "/jsp/admin/createSubject.jsp";
     }
 }

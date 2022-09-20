@@ -30,6 +30,8 @@ public class GetAllFaculties implements Command {
         request.setAttribute("order", order);
         request.setAttribute("faculties", Sorter.facultySorting(facultyService.getAllFaculties(), sort, order));
 
+        log.info(" get all faculties");
+
         return "jsp/admin/faculties.jsp";
     }
 }

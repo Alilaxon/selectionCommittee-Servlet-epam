@@ -20,7 +20,7 @@ public class RoleDao implements RoleRepository {
             statement.setString(1, roleName.name());
             ResultSet resultSet = statement.executeQuery();
 
-            while (resultSet.next()) role = RoleMapper.extractPosition(resultSet, Columns.ID);
+            while (resultSet.next()) role = RoleMapper.extractRole(resultSet, Columns.ID);
             statement.close();
             resultSet.close();
 

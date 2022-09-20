@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class GetUpdateFaculty implements Command {
 
-    private static final Logger log = LogManager.getLogger(GetAllFaculties.class);
+    private static final Logger log = LogManager.getLogger(GetUpdateFaculty.class);
 
     FacultyService facultyService;
 
@@ -34,6 +34,6 @@ public class GetUpdateFaculty implements Command {
         request.setAttribute("faculty", faculty);
 
 
-        return "jsp/admin/updateFaculty.jsp";
+        return "/jsp/admin/updateFaculty.jsp";
     }
 }

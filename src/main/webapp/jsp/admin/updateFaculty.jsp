@@ -13,7 +13,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE>
+<html lang="en">
 <head>
     <title>Title</title>
 
@@ -26,7 +27,7 @@
 </head>
 <body>
 <div class="container">
-    <form class="form-signin" method="POST" action="/updateFaculty" >
+    <form class="form-signin" method="POST" action="${pageContext.request.contextPath}/admin/updateFaculty" >
         <h5>
 
             <input type="hidden" name="facultyId" value="${faculty.getId()}">
@@ -48,13 +49,13 @@
 
             <label for="generalPlaces" >
                 <fmt:message key="faculties.generalPlaces"/>
-                <input class="form-control" type="text" name="generalPlaces"
+                <input class="form-control" type="number" min="2" name="generalPlaces"
                        value="${faculty.getGeneralPlaces()}" id="generalPlaces">
             </label>
 
 
             <label for="budgetPlaces" > <fmt:message key="faculties.budgetPlaces"/>
-                <input class="form-control" type="text" name="budgetPlaces"
+                <input class="form-control" type="number" min="1" name="budgetPlaces"
                        value="${faculty.getBudgetPlaces()}" id="budgetPlaces">
             </label>
 
@@ -62,10 +63,12 @@
         </h5>
         <div>
             <h3>
-               <c:forEach var="subject" items="${subjects}">
+               <c:forEach var="subject" items="${faculty.getRequiredSubjects()}">
                 <tr>
                     <!--    type="checkbox"  Позволяет ставить галочки-->
-                    <input type="checkbox" class="larger"
+                    <input type="hidden"
+<%--                            type="checkbox" class="larger"--%>
+                            name="id"
                            value="${subject.id}"
                            id="${subject.id}">
 

@@ -11,9 +11,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE>
+<html lang="en">
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <title>Subjects</title>
 </head>
 <body>
 <div class="container">
@@ -40,7 +42,7 @@
         <td >${subject.getNameEN()}</td>
         <td>${subject.getNameRU()}</td>
         <td>
-            <form method="POST" action="/deleteSubject " >
+            <form method="POST" action="${pageContext.request.contextPath}/admin/deleteSubject " >
                 <input type="hidden" name="id" value="${subject.getId()}">
                 <button class="btn btn-danger" type = "submit" >
          <fmt:message key="common.delete"/>
@@ -50,7 +52,7 @@
         </tbody>
 </c:forEach>
         <h2>
-            <a class="btn btn-primary" href="/addSubject" >
+            <a class="btn btn-primary" href="${pageContext.request.contextPath}/admin/addSubject" >
     <fmt:message key="subjects.addSubject"/></a>
             </br>
             <a class="btn btn-primary" href="/" >
@@ -60,30 +62,27 @@
 </div>
 
 
-<nav aria-label="Page navigation example" th:if="${pages > 1}">
-    <ul class="pagination justify-content-center">
-
-        <block th:each="i: ${#numbers.sequence(1, pages)}">
-
-            <c:if test="${i == page}">
-            <li class="page-item myselect active" >
-                <form method="get" action="/subjects">
-                <a class="page-link" >${i}</a>
-                    <input type="hidden" name="page" value="${i}">
-                </form>
-            </li>
-            </c:if>
-           <c:if test="${i != page}">
-            <li class="page-item myselect">
-                <form method="get" action="/subjects">
-                <a class="page-link">${i}</a>
-                    <input type="hidden" name="page" value="${i}">
-                </form>
-            </li>
-          </c:if>
-        </block>
-
-    </ul>
-</nav>
+<%--<nav aria-label="Page navigation example" th:if="${pages > 1}">--%>
+<%--    <ul class="pagination justify-content-center">--%>
+<%--        <block th:each="i: ${#numbers.sequence(1, pages)}">--%>
+<%--            <c:if test="${i == page}">--%>
+<%--            <li class="page-item myselect active" >--%>
+<%--                <form method="get" action="/subjects">--%>
+<%--                <a class="page-link" >${i}</a>--%>
+<%--                    <input type="hidden" name="page" value="${i}">--%>
+<%--                </form>--%>
+<%--            </li>--%>
+<%--            </c:if>--%>
+<%--           <c:if test="${i != page}">--%>
+<%--            <li class="page-item myselect">--%>
+<%--                <form method="get" action="/subjects">--%>
+<%--                <a class="page-link">${i}</a>--%>
+<%--                    <input type="hidden" name="page" value="${i}">--%>
+<%--                </form>--%>
+<%--            </li>--%>
+<%--          </c:if>--%>
+<%--        </block>--%>
+<%--    </ul>--%>
+<%--</nav>--%>
 </body>
 </html>

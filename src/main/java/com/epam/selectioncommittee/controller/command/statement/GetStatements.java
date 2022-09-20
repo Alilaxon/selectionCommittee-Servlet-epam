@@ -33,6 +33,6 @@ public class GetStatements implements Command {
         request.setAttribute("sort", sort);
         request.setAttribute("order", order);
         request.setAttribute("statements",statementService.findAllStatementsByFaculty(id));
-        return  "jsp/admin/statements.jsp";
+        return  "/jsp/admin/statements.jsp";
     }
 }

@@ -112,9 +112,11 @@ public class FacultyDao implements FacultyRepository {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM faculties WHERE name =?");
             statement.setString(1, name);
             ResultSet resultSet = statement.executeQuery();
+            Faculty faculty = null;
+            while (resultSet.next()) faculty = FacultyMapper.extractFaculty(resultSet, Columns.ID);
             statement.close();
 
-            return FacultyMapper.extractFaculty(resultSet, Columns.ID);
+            return faculty;
 
         } catch (Exception e) {
             throw new RuntimeException(e);

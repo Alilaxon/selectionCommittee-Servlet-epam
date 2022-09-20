@@ -82,7 +82,7 @@ public class FacultyService {
 
         log.info("Faculty '{}' was updated", facultyForm.getFacultyName());
 
-        return facultyRepository.save(FacultyBuilder.builder()
+        return facultyRepository.update(FacultyBuilder.builder()
                 .id(facultyForm.getId())
                 .facultyName(facultyForm.getFacultyName())
                 .facultyNameRU(facultyForm.getFacultyNameRU())

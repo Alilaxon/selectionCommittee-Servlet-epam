@@ -17,4 +17,17 @@ public class FacultyFormMapper {
                 .requiredSubjects(Arrays.asList(request.getParameterValues("id")))
                 .build();
     }
+
+    public static FacultyForm mapper(HttpServletRequest request,Long facultyId){
+
+        return FacultyFormBuilder.builder()
+                .id(facultyId)
+                .facultyName(request.getParameter("facultyName"))
+                .facultyNameRU(request.getParameter("facultyName"))
+                .budgetPlaces(Integer.valueOf(request.getParameter("budgetPlaces")))
+                .generalPlaces(Integer.valueOf(request.getParameter("generalPlaces")))
+                .recruitment(Boolean.parseBoolean(request.getParameter("recruitment")))
+                .requiredSubjects(Arrays.asList(request.getParameterValues("id")))
+                .build();
+    }
 }

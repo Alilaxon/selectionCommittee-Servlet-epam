@@ -98,7 +98,10 @@ public class UserDao implements UserRepository {
 
         try(Connection connection = DBManager.getInstance().getConnection()) {
 
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE username =? AND password=?");
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM users JOIN roles r on r.id = users.role_id " +
+                            "WHERE username =? AND password=?");
+
             statement.setString(1, username);
             statement.setString(2, password);
             ResultSet resultSet = statement.executeQuery();
@@ -119,12 +122,16 @@ public class UserDao implements UserRepository {
 
         try(Connection connection = DBManager.getInstance().getConnection()) {
 
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE username =?");
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM users JOIN roles r on r.id = users.role_id WHERE username =?");
             statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();
+
+            User user = null;
+            while (resultSet.next()) user = UserMapper.extractUser(resultSet,Columns.ID);
             statement.close();
 
-            return UserMapper.extractUser(resultSet,Columns.ID);
+            return user;
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -136,11 +143,12 @@ public class UserDao implements UserRepository {
     public User findById(Long id) {
         try(Connection connection = DBManager.getInstance().getConnection()) {
 
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE id =?");
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM  users  WHERE id =?");
             statement.setLong(1, id);
             ResultSet resultSet = statement.executeQuery();
             User user = null;
-            while (resultSet.next()) user = UserMapper.extractUser(resultSet,Columns.ID);
+            while (resultSet.next()) user = UserMapper.extractUser(resultSet);
             statement.close();
 
             return user;
@@ -156,7 +164,8 @@ public class UserDao implements UserRepository {
 
         try(Connection connection = DBManager.getInstance().getConnection()) {
 
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE role_id=1");
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM  users JOIN roles r on r.id = users.role_id WHERE role_id=1");
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()){

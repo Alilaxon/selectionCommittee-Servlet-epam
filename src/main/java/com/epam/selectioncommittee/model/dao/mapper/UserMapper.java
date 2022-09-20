@@ -1,4 +1,5 @@
 package com.epam.selectioncommittee.model.dao.mapper;
+
 import com.epam.selectioncommittee.model.builders.UserBuilder;
 import com.epam.selectioncommittee.model.entity.Role;
 import com.epam.selectioncommittee.model.entity.User;
@@ -11,6 +12,22 @@ public class UserMapper {
 
         return UserBuilder.builder()
                 .id(resultSet.getLong(id))
+                .username(resultSet.getString(Columns.USERNAME))
+                .email(resultSet.getString(Columns.EMAIL))
+                .firstname(resultSet.getString(Columns.FIRSTNAME))
+                .surname(resultSet.getString(Columns.SURNAME))
+                .city(resultSet.getString(Columns.CITY))
+                .region(resultSet.getString(Columns.REGION))
+                .institution(resultSet.getString(Columns.INSTITUTION))
+                .blocked(resultSet.getBoolean(Columns.BLOCKED))
+                .role(RoleMapper.extractRole(resultSet,Columns.ROLE_ID))
+                .build();
+    }
+
+    public static User extractUser(ResultSet resultSet) throws SQLException {
+
+        return UserBuilder.builder()
+                .id(resultSet.getLong(Columns.ID))
                 .username(resultSet.getString(Columns.USERNAME))
                 .email(resultSet.getString(Columns.EMAIL))
                 .firstname(resultSet.getString(Columns.FIRSTNAME))

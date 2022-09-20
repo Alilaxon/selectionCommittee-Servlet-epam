@@ -17,11 +17,8 @@ public class GetAllSubjects implements Command {
     @Override
     public String execute(HttpServletRequest request) {
 
-
-
-
         request.setAttribute("subjects",subjectService.getAllSubjects());
-        //TODO
-        return "jsp/admin/subjects.jsp";
+
+        return "/jsp/admin/subjects.jsp";
     }
 }

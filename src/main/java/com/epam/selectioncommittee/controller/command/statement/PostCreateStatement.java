@@ -16,6 +16,7 @@ public class PostCreateStatement implements Command {
     StatementService statementService;
 
     public PostCreateStatement(StatementService statementService) {
+
         this.statementService = statementService;
     }
 
@@ -26,9 +27,11 @@ public class PostCreateStatement implements Command {
 
         log.info("try to create new statement");
        try {
-
            statementService.createStatement(statementForm);
+
        } catch (UserAlreadyRegisteredException exception){
+
+           log.info(exception);
 
        }
 

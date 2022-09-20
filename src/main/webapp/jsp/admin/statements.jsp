@@ -1,5 +1,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<fmt:setLocale value="${sessionScope.lang}"/>
+<fmt:setBundle basename="localization"/>
 <%--
   Created by IntelliJ IDEA.
   User: User
@@ -8,11 +10,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE>
+<html lang="en">
 <head>
-    <title>Title</title>
+    <title>Statements</title>
     <%@include file="/jsp/parts/bootstrap.jsp" %>
-    <%@include file="/jsp/parts/header.jsp"%>
+
 </head>
 <body>
 <div class="container">

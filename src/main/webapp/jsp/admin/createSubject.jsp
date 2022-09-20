@@ -12,15 +12,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE>
+<html lang="en">
 <head>
-    <title>Title</title>
+    <title>CreateSubject</title>
 </head>
 <body>
 
 </body>
 <div>
-    <form class="form-signin" method="POST" action="/addSubject" >
+    <form class="form-signin" method="POST" action="${pageContext.request.contextPath}/admin/addSubject" >
 
         <label for="nameEN" >
             <fmt:message key="subjects.nameEN"/>

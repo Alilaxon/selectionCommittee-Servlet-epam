@@ -8,7 +8,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE>
+<html lang="en">
 <head>
     <title>Title</title>
   <fmt:setLocale value="${sessionScope.lang}"/>
@@ -19,7 +20,7 @@
 <body>
 <div class="container">
   <form class="form-signin" method="post" action="/login">
-    <h2 class="form-signin-heading">Please sign in</h2>
+    <h2 class="form-signin-heading"><fmt:message key="login.sign"/></h2>
     <p>
       <label for="username" class="sr-only"><fmt:message key="registration.login"/></label>
       <input type="text" id="username" name="username"
@@ -32,7 +33,7 @@
              class="form-control" placeholder="Password" required="">
     </p>
     <input name="_csrf" type="hidden" >
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit"><fmt:message key="login.signIn"/></button>
   </form>
 </div>
 </body>

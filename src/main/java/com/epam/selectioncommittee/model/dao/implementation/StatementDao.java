@@ -82,14 +82,17 @@ public class StatementDao implements StatementRepository {
     @Override
     public List<Statement> findAllByUserId(User user) {
 
+        log.info("temp ms {}",user.toString());
+
         List<Statement> statements = new ArrayList<>();
 
         try(Connection connection = DBManager.getInstance().getConnection()) {
 
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM statements\n" +
-                    "    JOIN faculties f on f.id = statements.faculty_id\n" +
-                    "    JOIN users u on u.id = statements.user_id\n" +
-                    "    JOIN positions p on p.id = statements.position_id WHERE statements.user_id =?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM statements " +
+                    "JOIN users u on u.id = statements.user_id JOIN roles r on r.id = u.role_id " +
+                    "JOIN positions p on p.id = statements.position_id " +
+                    "JOIN faculties f on f.id = statements.faculty_id " +
+                    "WHERE statements.user_id =?");
             statement.setLong(1,user.getId());
             ResultSet resultSet = statement.executeQuery();
 
@@ -112,7 +115,7 @@ public class StatementDao implements StatementRepository {
 
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM statements\n" +
                     "    JOIN faculties f on f.id = statements.faculty_id\n" +
-                    "    JOIN users u on u.id = statements.user_id\n" +
+                    "    JOIN users u on u.id = statements.user_id JOIN roles r on r.id = u.role_id\n" +
                     "    JOIN positions p on p.id = statements.position_id WHERE statements.faculty_id =?");
             statement.setLong(1,facultyId);
             ResultSet resultSet = statement.executeQuery();

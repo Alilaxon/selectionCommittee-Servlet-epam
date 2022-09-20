@@ -41,13 +41,13 @@ public class GetCreateStatement implements Command {
 
             log.info("User id={} already registered on this faculty",userId);
 
-            return "jsp/user/alreadyRegistered.jsp";
+            return "/jsp/user/alreadyRegistered.jsp";
         }
 
 
        request.setAttribute("faculty",faculty);
        request.setAttribute("subjectList", faculty.getRequiredSubjects());
         //TODO
-        return "jsp/user/createStatement.jsp";
+        return "/jsp/user/createStatement.jsp";
     }
 }
