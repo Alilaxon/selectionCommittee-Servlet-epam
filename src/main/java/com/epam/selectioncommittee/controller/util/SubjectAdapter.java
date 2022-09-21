@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectAdapter {
+
+    private SubjectAdapter() {
+    }
+
     public static List<String> adapter (List<Subject> list){
         List<String> strings = new ArrayList<>();
 

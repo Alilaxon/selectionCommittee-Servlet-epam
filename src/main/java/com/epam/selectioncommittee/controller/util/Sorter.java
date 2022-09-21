@@ -1,6 +1,5 @@
 package com.epam.selectioncommittee.controller.util;
 
-import com.epam.selectioncommittee.controller.FrontController;
 import com.epam.selectioncommittee.model.entity.Faculty;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,19 +10,13 @@ import java.util.stream.Collectors;
 
 public class Sorter {
 
-    private static final Logger log = LogManager.getLogger(FrontController.class);
+    private static final Logger log = LogManager.getLogger(Sorter.class);
 
     private Sorter() {
     }
 
     public static List<Faculty> facultySorting(List<Faculty> input, String sort, String order) {
 
-        for (Faculty faculty: input) {
-
-            //    log.info("Faculty name is {}",faculty.getFacultyName());
-
-
-        }
         List<Faculty> facultyList;
         if (sort.equals("generalPlaces")) {
             if (order.equals("desc")) {

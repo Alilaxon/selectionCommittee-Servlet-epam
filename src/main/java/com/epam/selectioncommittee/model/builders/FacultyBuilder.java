@@ -20,7 +20,7 @@ public class FacultyBuilder {
 
     private List<Subject> requiredSubjects;
 
-    public static FacultyBuilder builder(){
+    public static FacultyBuilder builder() {
 
         return new FacultyBuilder();
     }
@@ -60,9 +60,9 @@ public class FacultyBuilder {
         return this;
     }
 
-    public Faculty build(){
-        return new Faculty(id,facultyName,facultyNameRU,budgetPlaces,
-                generalPlaces,recruitment,requiredSubjects);
+    public Faculty build() {
+        return new Faculty(id, facultyName, facultyNameRU, budgetPlaces,
+                generalPlaces, recruitment, requiredSubjects);
     }
 
 }

@@ -16,7 +16,7 @@ public class RoleDao implements RoleRepository {
         Role role = null;
         try(Connection connection = DBManager.getInstance().getConnection()) {
 
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM roles WHERE name =?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM roles WHERE role_name =?");
             statement.setString(1, roleName.name());
             ResultSet resultSet = statement.executeQuery();
 

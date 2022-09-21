@@ -33,7 +33,6 @@ public class DBManager {
         config.setUsername(properties.getProperty("user"));
         config.setPassword(properties.getProperty("password"));
 
-        // config.setMaximumPoolSize(10);
 
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
@@ -56,8 +55,7 @@ public class DBManager {
     }
 
 
-
-    public  Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException {
 
         return dataSource.getConnection();
     }

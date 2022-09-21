@@ -6,6 +6,8 @@ public class UserForm {
 
     private String password;
 
+    private String passwordCopy;
+
     private String email;
 
     private String firstname;
@@ -21,11 +23,12 @@ public class UserForm {
     public UserForm() {
     }
 
-    public UserForm(String username, String password, String email,
-                    String firstname, String surname, String city,
-                    String region, String institution) {
+    public UserForm(String username, String password, String passwordCopy,
+                    String email, String firstname, String surname,
+                    String city, String region, String institution) {
         this.username = username;
         this.password = password;
+        this.passwordCopy = passwordCopy;
         this.email = email;
         this.firstname = firstname;
         this.surname = surname;
@@ -48,6 +51,14 @@ public class UserForm {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPasswordCopy() {
+        return passwordCopy;
+    }
+
+    public void setPasswordCopy(String passwordCopy) {
+        this.passwordCopy = passwordCopy;
     }
 
     public String getEmail() {

@@ -20,7 +20,7 @@ public class StatementBuilder {
     public StatementBuilder() {
     }
 
-    public static StatementBuilder builder()  {
+    public static StatementBuilder builder() {
         return new StatementBuilder();
     }
 
@@ -49,7 +49,7 @@ public class StatementBuilder {
         return this;
     }
 
-    public Statement build (){
-        return new Statement(id,facultyId,userId,gradePointAverage,position_id);
+    public Statement build() {
+        return new Statement(id, facultyId, userId, gradePointAverage, position_id);
     }
 }

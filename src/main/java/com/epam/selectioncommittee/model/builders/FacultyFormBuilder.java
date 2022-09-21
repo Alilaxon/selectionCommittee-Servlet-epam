@@ -1,7 +1,6 @@
 package com.epam.selectioncommittee.model.builders;
 
 import com.epam.selectioncommittee.model.dto.FacultyForm;
-import com.epam.selectioncommittee.model.entity.Subject;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class FacultyFormBuilder {
 
     private List<String> requiredSubjects;
 
-    public static FacultyFormBuilder builder(){
+    public static FacultyFormBuilder builder() {
 
         return new FacultyFormBuilder();
     }
@@ -59,15 +58,10 @@ public class FacultyFormBuilder {
         this.requiredSubjects = requiredSubjects;
         return this;
     }
-// this.id = id;
-//        this.facultyName = facultyName;
-//        this.facultyNameRU = facultyNameRU;
-//        this.budgetPlaces = budgetPlaces;
-//        this.generalPlaces = generalPlaces;
-//        this.recruitment = recruitment;
-//        this.requiredSubjects = requiredSubjects;
-    public FacultyForm build(){
-        return new FacultyForm(id,facultyName,facultyNameRU,budgetPlaces,
-                generalPlaces,recruitment,requiredSubjects);
+
+
+    public FacultyForm build() {
+        return new FacultyForm(id, facultyName, facultyNameRU, budgetPlaces,
+                generalPlaces, recruitment, requiredSubjects);
     }
 }

@@ -18,11 +18,8 @@ public class AuthenticationFilter implements Filter {
 
     private static final Logger log = LogManager.getLogger(AuthenticationFilter.class);
 
-   public static final String ROLE_ATTRIBUTE = "role";
+    public static final String ROLE_ATTRIBUTE = "role";
 
-
-
-    private static final String USER_ID_ATTRIBUTE = "userId";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -48,14 +45,14 @@ public class AuthenticationFilter implements Filter {
 
         Role.RoleName role = Role.RoleName.valueOf(session.getAttribute(ROLE_ATTRIBUTE).toString());
 
-        if(!checkAccess(URI,role)) {
-            if (role.equals(Role.RoleName.GUEST)){
+        if (!checkAccess(URI, role)) {
+            if (role.equals(Role.RoleName.GUEST)) {
                 response.sendRedirect(request.getContextPath() + LOGIN);
             }
 
 
-         log.info("something wrong");
-          return;
+            log.info("something wrong");
+            return;
         }
         log.info("everything good");
         filterChain.doFilter(servletRequest, servletResponse);
@@ -83,7 +80,7 @@ public class AuthenticationFilter implements Filter {
 
     private boolean checkGuestAccess(String uri) {
 
-        return checkCommonAccess(uri) || uri.equals(LOGIN) || uri.equals(REGISTRATION);
+        return checkCommonAccess(uri) || uri.equals(LOGIN) || uri.equals(REGISTRATION) || uri.equals(REGISTERED);
     }
 
     private boolean checkCommonAccess(String uri) {

@@ -20,19 +20,19 @@ public class UserBuilder {
 
     private String region;
 
-    private String  institution;
+    private String institution;
 
     private Role role;
 
     private Boolean blocked;
 
-    public static UserBuilder builder(){
+    public static UserBuilder builder() {
 
         return new UserBuilder();
     }
 
 
-    public UserBuilder id(Long id){
+    public UserBuilder id(Long id) {
         this.id = id;
         return this;
     }
@@ -88,9 +88,10 @@ public class UserBuilder {
         this.blocked = blocked;
         return this;
     }
-    public User build(){
-        return new User(id,username,password,email
-                ,firstname,surname,city, region,institution
-                ,role,blocked);
+
+    public User build() {
+        return new User(id, username, password, email
+                , firstname, surname, city, region, institution
+                , role, blocked);
     }
 }

@@ -8,6 +8,8 @@ public class UserFormBuilder {
 
     private String password;
 
+    private String passwordCopy;
+
     private String email;
 
     private String firstname;
@@ -18,12 +20,12 @@ public class UserFormBuilder {
 
     private String region;
 
-    private String  institution;
+    private String institution;
 
     public UserFormBuilder() {
     }
 
-    public static UserFormBuilder builder(){
+    public static UserFormBuilder builder() {
 
         return new UserFormBuilder();
     }
@@ -37,6 +39,11 @@ public class UserFormBuilder {
     public UserFormBuilder password(String password) {
         this.password = password;
 
+        return this;
+    }
+
+    public UserFormBuilder passwordCopy(String passwordCopy) {
+        this.passwordCopy = passwordCopy;
         return this;
     }
 
@@ -72,8 +79,8 @@ public class UserFormBuilder {
         return this;
     }
 
-    public UserForm build(){
-        return new UserForm(username,password,email
-                ,firstname,surname,city, region,institution);
+    public UserForm build() {
+        return new UserForm(username, password,passwordCopy, email
+                , firstname, surname, city, region, institution);
     }
 }

@@ -1,8 +1,8 @@
 package com.epam.selectioncommittee.controller.command.user;
 
 import com.epam.selectioncommittee.controller.command.Command;
-import com.epam.selectioncommittee.controller.command.admin.PostBlockUsers;
 import com.epam.selectioncommittee.controller.mapper.UserFormMapper;
+import com.epam.selectioncommittee.controller.util.Validator;
 import com.epam.selectioncommittee.model.dto.UserForm;
 import com.epam.selectioncommittee.model.exception.EmailIsReservedException;
 import com.epam.selectioncommittee.model.exception.UsernameIsReservedException;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class PostCreateUser implements Command {
 
-    private static final Logger log = LogManager.getLogger(PostBlockUsers.class);
+    private static final Logger log = LogManager.getLogger(PostCreateUser.class);
 
     UserService userService;
 
@@ -25,27 +25,26 @@ public class PostCreateUser implements Command {
 
     @Override
     public String execute(HttpServletRequest request) {
+
         UserForm userForm = UserFormMapper.mapper(request);
-        log.info("User = {} want create account",userForm.getUsername());
-        try {
-            userService.createUser(userForm);
-            return "redirect:/registered";
+
+        log.info("User = {} want create account", userForm.getUsername());
+        log.info("temp ms {} and {}",userForm.getPassword(),userForm.getPasswordCopy());
+         if(Validator.validate(userForm,request)) {
+            try {
+
+                userService.createUser(userForm);
+                return "redirect:/registered";
+
+            } catch (UsernameIsReservedException exception) {
+                request.setAttribute("LoginIsReserved", true);
+            } catch (EmailIsReservedException exception) {
+                request.setAttribute("EmailIsReserved", true);
+            }
         }
-        catch (UsernameIsReservedException exception){
-
-            request.setAttribute("LoginIsReserved",true);
-        }
-        catch (EmailIsReservedException exception){
-
-
-
-            request.setAttribute("EmailIsReserved",true);
-        }
-
-
-        return "registration.jsp";
+         UserFormMapper.request(userForm,request);
+        return "/jsp/registration.jsp";
     }
 
-
-    }
+}
 

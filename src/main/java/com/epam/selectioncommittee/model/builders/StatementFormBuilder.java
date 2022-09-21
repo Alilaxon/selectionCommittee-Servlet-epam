@@ -36,7 +36,7 @@ public class StatementFormBuilder {
         return this;
     }
 
-    public StatementForm build(){
-        return new StatementForm(userId, facultyId,grades);
+    public StatementForm build() {
+        return new StatementForm(userId, facultyId, grades);
     }
 }

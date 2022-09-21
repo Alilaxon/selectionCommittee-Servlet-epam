@@ -58,6 +58,9 @@ public class FacultyDao implements FacultyRepository {
             return faculty;
 
         } catch (SQLException e) {
+
+
+
             throw new RuntimeException(e);
         }
     }
@@ -67,7 +70,8 @@ public class FacultyDao implements FacultyRepository {
 
         try (Connection connection = DBManager.getInstance().getConnection()) {
             PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE faculties SET name = ? , name_ru = ?,budget_places =?,general_places =?,recruitment =?  WHERE id = ?");
+                    "UPDATE faculties SET name = ? , name_ru = ?," +
+                            "budget_places =?,general_places =?,recruitment =?  WHERE id = ?");
 
             statement.setString(1, faculty.getFacultyName());
             statement.setString(2, faculty.getFacultyNameRU());

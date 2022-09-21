@@ -32,8 +32,8 @@ import java.util.Map;
 public class FrontController extends HttpServlet {
 
     private static final Logger log = LogManager.getLogger(FrontController.class);
-    private Map<String, Command> getCommands = new HashMap<>();
-    private Map<String, Command> postCommands = new HashMap<>();
+    private final Map<String, Command> getCommands = new HashMap<>();
+    private final Map<String, Command> postCommands = new HashMap<>();
 
     private static final String COMMAND_NOT_FOUND = "Command not found";
 

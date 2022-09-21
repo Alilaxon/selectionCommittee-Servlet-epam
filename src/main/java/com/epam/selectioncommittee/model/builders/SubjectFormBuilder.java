@@ -28,7 +28,8 @@ public class SubjectFormBuilder {
         return this;
 
     }
-    public SubjectForm build(){
-        return new SubjectForm(nameEN,nameRU);
+
+    public SubjectForm build() {
+        return new SubjectForm(nameEN, nameRU);
     }
 }
