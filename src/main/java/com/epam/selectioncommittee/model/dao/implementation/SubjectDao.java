@@ -5,10 +5,7 @@ import com.epam.selectioncommittee.model.dao.SubjectRepository;
 import com.epam.selectioncommittee.model.dao.mapper.SubjectMapper;
 import com.epam.selectioncommittee.model.entity.Subject;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +55,32 @@ public class SubjectDao implements SubjectRepository {
         return subjects;
     }
 
+    @Override
+    public List<Subject> findAllOnPage(Integer limit, Integer offset) {
 
+        List<Subject> subjects = new ArrayList<>();
+
+        try(Connection connection = DBManager.getInstance().getConnection()) {
+
+            PreparedStatement statement = connection.prepareStatement(
+                    "SELECT * FROM subjects ORDER BY id ASC LIMIT ? OFFSET ?");
+
+            statement.setInt(1,limit);
+            statement.setInt(2,offset);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()){
+
+                subjects.add(SubjectMapper.extractSubject(resultSet));
+            }
+            statement.close();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return subjects;
+    }
 
     @Override
     public boolean existsByNameEN(String name) {
@@ -141,5 +163,17 @@ public class SubjectDao implements SubjectRepository {
         }
 
         return subjects;
+    }
+    @Override
+    public int getAllSubjectsSize() {
+        try (Connection con = DBManager.getInstance().getConnection();
+             Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM subjects")) {
+            resultSet .last();
+            return resultSet .getRow();
+        } catch (SQLException e) {
+
+            throw new RuntimeException(e);
+        }
     }
 }

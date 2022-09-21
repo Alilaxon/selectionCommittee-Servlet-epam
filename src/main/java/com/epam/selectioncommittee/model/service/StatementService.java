@@ -7,10 +7,7 @@ import com.epam.selectioncommittee.model.dao.PositionRepository;
 import com.epam.selectioncommittee.model.dao.StatementRepository;
 import com.epam.selectioncommittee.model.dao.UserRepository;
 import com.epam.selectioncommittee.model.dto.StatementForm;
-import com.epam.selectioncommittee.model.entity.Faculty;
-import com.epam.selectioncommittee.model.entity.Position;
-import com.epam.selectioncommittee.model.entity.Statement;
-import com.epam.selectioncommittee.model.entity.User;
+import com.epam.selectioncommittee.model.entity.*;
 import com.epam.selectioncommittee.model.exception.UserAlreadyRegisteredException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -72,6 +69,13 @@ public class StatementService {
         return statementRepository.findAllByFacultyId(facultyId);
     }
 
+    public List<Statement> findAllStatementsByFacultyPages(Long facultyId,Integer pageNumber) {
+        Integer limit = 5;
+        Integer offset = limit*(pageNumber -1);
+
+        return statementRepository.findAllByFacultyIdPages(facultyId,limit,offset);
+    }
+
 //    public Page<Statement> findAllStatementsByFaculty(Faculty faculty, Pageable pageable) {
 //                     //TODO
 //        return statementRepository.findAllByFacultyId(faculty, pageable);
@@ -125,7 +129,10 @@ public class StatementService {
 
     }
 
+    public int getPages(Long id) {
 
+        return (int) Math.ceil(statementRepository.getAllStatementsSize(id)  / (double) 5);
+    }
 
     private boolean isOnFaculty(Statement statement) {
         return statement.getPosition().getPositionType().equals(Position.PositionType.BUDGET) ||

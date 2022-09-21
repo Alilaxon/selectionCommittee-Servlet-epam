@@ -17,7 +17,17 @@ public class GetAllSubjects implements Command {
     @Override
     public String execute(HttpServletRequest request) {
 
-        request.setAttribute("subjects",subjectService.getAllSubjects());
+
+        String page = (request.getParameter("page"));
+
+        if(page == null) page = "1";
+
+        int pages = subjectService.getPages();
+
+        request.setAttribute("pages",pages);
+        request.setAttribute("page",page);
+
+        request.setAttribute("subjects",subjectService.getAllSubjectsPage(Integer.parseInt(page)));
 
         return "/jsp/admin/subjects.jsp";
     }

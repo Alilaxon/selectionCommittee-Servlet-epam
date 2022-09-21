@@ -6,15 +6,18 @@ import java.util.List;
 
 public interface SubjectRepository {
 
-Subject save(Subject subject);
+    Subject save(Subject subject);
 
 
+    List<Subject> findAll();
 
-List<Subject> findAll ();
+    List<Subject> findAllOnPage(Integer limit, Integer offset);
 
 
+     int getAllSubjectsSize();
 
-boolean existsByNameEN(String name);
+
+    boolean existsByNameEN(String name);
 
     Subject findById(Long id);
 

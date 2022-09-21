@@ -16,6 +16,10 @@ public interface StatementRepository {
 
     List<Statement> findAllByFacultyId(Long facultyId);
 
+    List<Statement> findAllByFacultyIdPages(Long facultyId ,Integer limit, Integer offset);
+
+    int getAllStatementsSize(Long id);
+
     boolean existsByUserIdAndAndFacultyId(Long userId, Long facultyId);
 
    void deleteAll(List<Statement> statements);

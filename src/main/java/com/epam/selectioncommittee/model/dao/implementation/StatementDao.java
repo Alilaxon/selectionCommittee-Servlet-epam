@@ -131,6 +131,33 @@ public class StatementDao implements StatementRepository {
         return statements;
     }
 
+    @Override
+    public List<Statement> findAllByFacultyIdPages(Long facultyId ,Integer limit, Integer offset) {
+        List<Statement> statements = new ArrayList<>();
+
+        try(Connection connection = DBManager.getInstance().getConnection()) {
+
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM statements\n" +
+                    "    JOIN faculties f on f.id = statements.faculty_id\n" +
+                    "    JOIN users u on u.id = statements.user_id JOIN roles r on r.id = u.role_id\n" +
+                    "    JOIN positions p on p.id = statements.position_id WHERE statements.faculty_id =?" +
+                    " ORDER BY gpa ASC LIMIT ? OFFSET ?");
+            statement.setLong(1,facultyId);
+            statement.setInt(2,limit);
+            statement.setInt(3,offset);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()){
+                statements.add(StatementMapper.extractStatement(resultSet));
+            }
+            statement.close();
+        } catch (Exception e) {
+
+            throw new RuntimeException(e);
+        }
+        return statements;
+    }
+
 
 
     @Override
@@ -168,6 +195,20 @@ public class StatementDao implements StatementRepository {
 
             update(statement);
 
+        }
+    }
+
+    @Override
+    public int getAllStatementsSize(Long id) {
+        try (Connection con = DBManager.getInstance().getConnection();
+             java.sql.Statement statement = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM statements WHERE faculty_id="+id)) {
+
+            resultSet .last();
+            return resultSet .getRow();
+        } catch (SQLException e) {
+
+            throw new RuntimeException(e);
         }
     }
 }

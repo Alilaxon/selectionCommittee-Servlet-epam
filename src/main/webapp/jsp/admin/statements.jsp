@@ -9,7 +9,7 @@
   Time: 23:05
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <!DOCTYPE>
 <html lang="en">
 <head>
@@ -55,19 +55,19 @@
                     <c:if test="${order == 'desc'}">
                 <button type="submit" >
                     <fmt:message key="statements.gradePointAverage"/>
-                        <input type="hidden" name="facultyId" value="${faculty.id}">
-                        <input type="hidden" name="page" value="${page}">
-                        <input type="hidden" name="sort" value="gradePointAverage">
-                        <input type="hidden" name="order" value="asc">
+<%--                        <input type="hidden" name="facultyId" value="${faculty.id}">--%>
+<%--                        <input type="hidden" name="page" value="${page}">--%>
+<%--                        <input type="hidden" name="sort" value="gradePointAverage">--%>
+<%--                        <input type="hidden" name="order" value="asc">--%>
                         </button>
                     </c:if>
 
                      <c:if test="${order == 'asc'}">
                 <button type="submit">
-                    <input type="hidden" name="facultyId" value="${faculty.id}">
-                    <input type="hidden" name="page" value="${page}">
-                    <input type="hidden" name="sort" value="gradePointAverage">
-                    <input type="hidden" name="order" value="desc">
+<%--                    <input type="hidden" name="facultyId" value="${faculty.id}">--%>
+<%--                    <input type="hidden" name="page" value="${page}">--%>
+<%--                    <input type="hidden" name="sort" value="gradePointAverage">--%>
+<%--                    <input type="hidden" name="order" value="desc">--%>
                     <fmt:message key="statements.gradePointAverage"/></button>
                     </c:if>
 
@@ -117,5 +117,6 @@
         </h2>
     </table>
 </div>
+<%@include file="/jsp/parts/paginationStatement.jsp" %>
 </body>
 </html>

@@ -31,9 +31,12 @@ public class SubjectService {
                 .nameRU(subjectForm.getNameRU())
                 .build());
     }
-//    public Page<Subject> getAllSubjectsPage(Pageable pageable) {
-//        return subjectRepository.findAll(pageable);
-//    }
+    public List<Subject> getAllSubjectsPage(Integer pageNumber) {
+        Integer limit = 3;
+        Integer offset = limit*(pageNumber -1);
+
+        return subjectRepository.findAllOnPage(limit,offset);
+    }
     public List<Subject> getAllSubjects() {
 
         return subjectRepository.findAll();
@@ -53,6 +56,11 @@ public class SubjectService {
         log.info("Subject id = '{}' is deleted",id);
 
         subjectRepository.deleteById(id);
+    }
+
+    public int getPages() {
+
+        return (int) Math.ceil(subjectRepository.getAllSubjectsSize()  / (double) 3);
     }
 
 }

@@ -12,7 +12,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Subjects</title>
@@ -61,28 +61,6 @@
     </table>
 </div>
 
-
-<%--<nav aria-label="Page navigation example" th:if="${pages > 1}">--%>
-<%--    <ul class="pagination justify-content-center">--%>
-<%--        <block th:each="i: ${#numbers.sequence(1, pages)}">--%>
-<%--            <c:if test="${i == page}">--%>
-<%--            <li class="page-item myselect active" >--%>
-<%--                <form method="get" action="/subjects">--%>
-<%--                <a class="page-link" >${i}</a>--%>
-<%--                    <input type="hidden" name="page" value="${i}">--%>
-<%--                </form>--%>
-<%--            </li>--%>
-<%--            </c:if>--%>
-<%--           <c:if test="${i != page}">--%>
-<%--            <li class="page-item myselect">--%>
-<%--                <form method="get" action="/subjects">--%>
-<%--                <a class="page-link">${i}</a>--%>
-<%--                    <input type="hidden" name="page" value="${i}">--%>
-<%--                </form>--%>
-<%--            </li>--%>
-<%--          </c:if>--%>
-<%--        </block>--%>
-<%--    </ul>--%>
-<%--</nav>--%>
+<%@include file="/jsp/parts/paginationSubject.jsp" %>
 </body>
 </html>
