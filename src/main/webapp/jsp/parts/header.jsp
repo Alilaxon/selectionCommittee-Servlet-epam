@@ -20,7 +20,7 @@
             </a>
             <a class="btn btn-primary" href="?lang=ru"><fmt:message key="lang.ru"/></a>
             <a class="btn btn-primary" href="?lang=en"><fmt:message key="lang.en"/></a>
-            <a>${sessionScope.role}</a>
+<%--            <a>${sessionScope.role}</a>--%>
         </div>
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center">
             <c:if test="${sessionScope.role == 'ADMIN'}">

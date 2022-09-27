@@ -4,16 +4,11 @@
 <%@include file="/jsp/parts/springStyle.jsp"%>
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="localization"/>
-<%--
-  Created by IntelliJ IDEA.
-  User: User
-  Date: 13.09.2022
-  Time: 23:04
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE>
-<html lang="en">
+<html>
 <head>
     <title>CreateSubject</title>
 </head>

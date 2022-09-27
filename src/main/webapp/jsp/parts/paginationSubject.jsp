@@ -15,14 +15,14 @@
                             </form>
                         </li>
                     </c:if>
-                    <c:if test="${i != page}">
-                        <li class="page-item myselect">
-                            <form method="get" action="${pageContext.request.contextPath}/admin/subjects">
-                                <button class="page-link" type="submit">${i}</button>
-                                <input type="hidden" name="page" value="${i}">
-                            </form>
-                        </li>
-                    </c:if>
+<%--                    <c:if test="${i != page}">--%>
+<%--                        <li class="page-item myselect">--%>
+<%--                            <form method="get" action="${pageContext.request.contextPath}/admin/subjects">--%>
+<%--                                <button class="page-link" type="submit">${i}</button>--%>
+<%--                                <input type="hidden" name="page" value="${i}">--%>
+<%--                            </form>--%>
+<%--                        </li>--%>
+<%--                    </c:if>--%>
                 </block>
             </c:forEach>
         </ul>

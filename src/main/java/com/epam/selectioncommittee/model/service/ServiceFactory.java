@@ -3,7 +3,7 @@ package com.epam.selectioncommittee.model.service;
 
 
 public abstract class ServiceFactory {
-    private static volatile ServiceFactory serviceFactory;
+    private static  ServiceFactory serviceFactory;
 
     protected ServiceFactory() {}
 
@@ -13,13 +13,12 @@ public abstract class ServiceFactory {
     public abstract StatementService createStatementService();
 
     public static ServiceFactory getInstance() {
+
         if (serviceFactory == null) {
-            synchronized (ServiceFactory.class) {
-                if (serviceFactory == null) {
+
                     serviceFactory = new ServiceFactoryImpl();
                 }
-            }
-        }
+
         return serviceFactory;
     }
 }

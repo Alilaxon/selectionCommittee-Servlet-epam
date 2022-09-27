@@ -70,7 +70,7 @@ public class StatementService {
     }
 
     public List<Statement> findAllStatementsByFacultyPages(Long facultyId,Integer pageNumber) {
-        Integer limit = 5;
+        Integer limit = 3;
         Integer offset = limit*(pageNumber -1);
 
         return statementRepository.findAllByFacultyIdPages(facultyId,limit,offset);
@@ -131,7 +131,7 @@ public class StatementService {
 
     public int getPages(Long id) {
 
-        return (int) Math.ceil(statementRepository.getAllStatementsSize(id)  / (double) 5);
+        return (int) Math.ceil(statementRepository.getAllStatementsSize(id)  / (double) 3);
     }
 
     private boolean isOnFaculty(Statement statement) {

@@ -142,7 +142,7 @@ public class FrontController extends HttpServlet {
                 new GetCreateStatement(serviceFactory.createFacultyService(),
                         serviceFactory.createUserService(),serviceFactory.createStatementService()));
         getCommands.put(StatementUrl.STATEMENTS,
-                new GetStatements(serviceFactory.createStatementService()));
+                new GetStatements(serviceFactory.createStatementService(),serviceFactory.createFacultyService()));
 
 
     }

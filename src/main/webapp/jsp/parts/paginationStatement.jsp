@@ -9,7 +9,7 @@
                 <block>
                     <c:if test="${i == page}">
                         <li class="page-item myselect active" >
-                            <form method="get" action="${pageContext.request.contextPath}/admin/statements">
+                            <form method="get" action="/admin/statements">
                                 <button class="page-link" type="submit" >${i}</button>
                                 <input type="hidden" name="facultyId" value="${facultyId}">
                                 <input type="hidden" name="page" value="${i}">
