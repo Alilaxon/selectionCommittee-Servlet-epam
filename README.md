@@ -77,3 +77,6 @@ email абітурієнтові).
 тег custom tag library і один тег tag file).
 23. При розробці використовувати сесії, фільтри, слухачі.
 
+
+
+![DB](https://user-images.githubusercontent.com/96628715/191686264-bd8e97ca-c885-469f-a6fd-6d1d55321bba.png)
